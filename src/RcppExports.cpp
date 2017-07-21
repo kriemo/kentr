@@ -6,6 +6,29 @@
 
 using namespace Rcpp;
 
+// read_bam
+DataFrame read_bam(std::string bampath);
+RcppExport SEXP _kentr_read_bam(SEXP bampathSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type bampath(bampathSEXP);
+    rcpp_result_gen = Rcpp::wrap(read_bam(bampath));
+    return rcpp_result_gen;
+END_RCPP
+}
+// getSeq
+DataFrame getSeq(DataFrame df, std::string fapath);
+RcppExport SEXP _kentr_getSeq(SEXP dfSEXP, SEXP fapathSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< DataFrame >::type df(dfSEXP);
+    Rcpp::traits::input_parameter< std::string >::type fapath(fapathSEXP);
+    rcpp_result_gen = Rcpp::wrap(getSeq(df, fapath));
+    return rcpp_result_gen;
+END_RCPP
+}
 // get_hamming
 std::vector<int> get_hamming(std::string bc_to_test, std::vector< std::string > all_bcs);
 RcppExport SEXP _kentr_get_hamming(SEXP bc_to_testSEXP, SEXP all_bcsSEXP) {
