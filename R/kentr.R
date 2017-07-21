@@ -1,7 +1,7 @@
 #' @importFrom Rcpp sourceCpp
+#' @importFrom  purrr map_chr map
 #' @import dplyr
-#' @import stringr
+#' @importFrom stringr str_split str_detect str_replace
 #' @import readr
-#' @import purrr
 #' @useDynLib kentr
 NULL

@@ -5,15 +5,15 @@
 #' @param bc_to_test String to get hamming distance
 #' @param all_bcs character vector to compare
 #' @export
-hamming_distance_iterator <- function(bc_to_test, all_bcs) {
-    .Call('kentr_hamming_distance_iterator', PACKAGE = 'kentr', bc_to_test, all_bcs)
+get_hamming <- function(bc_to_test, all_bcs) {
+    .Call('_kentr_get_hamming', PACKAGE = 'kentr', bc_to_test, all_bcs)
 }
 
 #' Compare a string to a vector of strings report mismatch position
 #' @param bc_to_test String to check
 #' @param all_bcs character vector to compare
 #' @export
-mismatch_position_calc <- function(bc_to_test, all_bcs) {
-    .Call('kentr_mismatch_position_calc', PACKAGE = 'kentr', bc_to_test, all_bcs)
+find_mismatch <- function(bc_to_test, all_bcs) {
+    .Call('_kentr_find_mismatch', PACKAGE = 'kentr', bc_to_test, all_bcs)
 }
 

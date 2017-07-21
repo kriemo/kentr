@@ -34,7 +34,7 @@ n_inner_join <- function(.dir, .pattern, .cols, ...){
 #' @export
 write_gztsv <- function(df, name, ...){
   # write output as gzipped, supply name without .gz
-  if(str_detect(name, ".gz$")){
+  if(stringr::str_detect(name, ".gz$")){
     uncompressed_name <- stringr::str_replace(name, ".gz$", "")
   } else {
     uncompressed_name <- name

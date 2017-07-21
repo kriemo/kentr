@@ -46,7 +46,7 @@ int hamming_distance(const std::string& fs, const std::string& ss){
 //' @param all_bcs character vector to compare
 //' @export
 // [[Rcpp::export]]
-std::vector<int> hamming_distance_iterator(std::string bc_to_test,
+std::vector<int> get_hamming(std::string bc_to_test,
                                            std::vector< std::string > all_bcs) {
 
   int n = all_bcs.size() ;
@@ -65,8 +65,8 @@ std::vector<int> hamming_distance_iterator(std::string bc_to_test,
 //' @param all_bcs character vector to compare
 //' @export
 // [[Rcpp::export]]
-std::vector<int> mismatch_position_calc(std::string bc_to_test,
-                                        std::vector< std::string > all_bcs) {
+std::vector<int> find_mismatch(std::string bc_to_test,
+                               std::vector< std::string > all_bcs) {
   int n = all_bcs.size() ;
   int bc_length = bc_to_test.size() ;
   std::vector<int> mismatch_pos(bc_length) ;
@@ -82,11 +82,11 @@ std::vector<int> mismatch_position_calc(std::string bc_to_test,
 
 /*** R
 
-dna_seq <- "ATCGATCG"
+dna_seq <- c("ATCGATCG", "ATCGATGG")
 dna_seqs <- c("ATCGATCG", "ATCGATGG")
 
-hamming_distance_iterator(dna_seq, dna_seqs)
-mismatch_position_calc(dna_seq, dna_seqs)
+get_hamming(dna_seq, dna_seqs)
+find_mismatch(dna_seq, dna_seqs)
 
 */
 

@@ -6,27 +6,27 @@
 
 using namespace Rcpp;
 
-// hamming_distance_iterator
-std::vector<int> hamming_distance_iterator(std::string bc_to_test, std::vector< std::string > all_bcs);
-RcppExport SEXP kentr_hamming_distance_iterator(SEXP bc_to_testSEXP, SEXP all_bcsSEXP) {
+// get_hamming
+std::vector<int> get_hamming(std::string bc_to_test, std::vector< std::string > all_bcs);
+RcppExport SEXP _kentr_get_hamming(SEXP bc_to_testSEXP, SEXP all_bcsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type bc_to_test(bc_to_testSEXP);
     Rcpp::traits::input_parameter< std::vector< std::string > >::type all_bcs(all_bcsSEXP);
-    rcpp_result_gen = Rcpp::wrap(hamming_distance_iterator(bc_to_test, all_bcs));
+    rcpp_result_gen = Rcpp::wrap(get_hamming(bc_to_test, all_bcs));
     return rcpp_result_gen;
 END_RCPP
 }
-// mismatch_position_calc
-std::vector<int> mismatch_position_calc(std::string bc_to_test, std::vector< std::string > all_bcs);
-RcppExport SEXP kentr_mismatch_position_calc(SEXP bc_to_testSEXP, SEXP all_bcsSEXP) {
+// find_mismatch
+std::vector<int> find_mismatch(std::string bc_to_test, std::vector< std::string > all_bcs);
+RcppExport SEXP _kentr_find_mismatch(SEXP bc_to_testSEXP, SEXP all_bcsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type bc_to_test(bc_to_testSEXP);
     Rcpp::traits::input_parameter< std::vector< std::string > >::type all_bcs(all_bcsSEXP);
-    rcpp_result_gen = Rcpp::wrap(mismatch_position_calc(bc_to_test, all_bcs));
+    rcpp_result_gen = Rcpp::wrap(find_mismatch(bc_to_test, all_bcs));
     return rcpp_result_gen;
 END_RCPP
 }
