@@ -13,6 +13,13 @@ getSeq <- function(df, fapath) {
     .Call('_kentr_getSeq', PACKAGE = 'kentr', df, fapath)
 }
 
+#' Reverse complement a vector of DNA sequences
+#' @param vec character vector of DNA [ATCGN]
+#' @export
+revComp <- function(vec) {
+    .Call('_kentr_revComp', PACKAGE = 'kentr', vec)
+}
+
 #' Compare a string to a vector of strings and report hamming distance
 #' @param bc_to_test String to get hamming distance
 #' @param all_bcs character vector to compare
