@@ -36,18 +36,10 @@ find_mismatch <- function(bc_to_test, all_bcs) {
     .Call('_kentr_find_mismatch', PACKAGE = 'kentr', bc_to_test, all_bcs)
 }
 
-#' generate overlapping kmers from a string
-#' @param seqs string containing sequences to split into kmers
-#' @param k kmer length
+#' get kmer-counts for character vector of sequences
+#' @param n kmer size
 #' @export
-getKmers <- function(seqs, k = 2L) {
-    .Call('_kentr_getKmers', PACKAGE = 'kentr', seqs, k)
-}
-
-#' count kmers
-#' @param kmers character vector of kmers to count
-#' @export
-countKmers <- function(kmers) {
-    .Call('_kentr_countKmers', PACKAGE = 'kentr', kmers)
+get_kmers <- function(seqs, n = 2L) {
+    .Call('_kentr_get_kmers', PACKAGE = 'kentr', seqs, n)
 }
 

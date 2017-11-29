@@ -64,26 +64,15 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// getKmers
-CharacterVector getKmers(std::string seqs, int k);
-RcppExport SEXP _kentr_getKmers(SEXP seqsSEXP, SEXP kSEXP) {
+// get_kmers
+List get_kmers(CharacterVector seqs, int n);
+RcppExport SEXP _kentr_get_kmers(SEXP seqsSEXP, SEXP nSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type seqs(seqsSEXP);
-    Rcpp::traits::input_parameter< int >::type k(kSEXP);
-    rcpp_result_gen = Rcpp::wrap(getKmers(seqs, k));
-    return rcpp_result_gen;
-END_RCPP
-}
-// countKmers
-DataFrame countKmers(CharacterVector kmers);
-RcppExport SEXP _kentr_countKmers(SEXP kmersSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< CharacterVector >::type kmers(kmersSEXP);
-    rcpp_result_gen = Rcpp::wrap(countKmers(kmers));
+    Rcpp::traits::input_parameter< CharacterVector >::type seqs(seqsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_kmers(seqs, n));
     return rcpp_result_gen;
 END_RCPP
 }
