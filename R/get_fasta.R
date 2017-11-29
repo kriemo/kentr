@@ -1,10 +1,10 @@
-#'Extract fasta sequences using bed intervals
+#'Extract sequences from fasta using bed intervals
 #'
-#'@param df dataframe containing bed intervals (chrom, start, end, and optionally strand)
+#'@param df dataframe containing bed intervals (columm names chrom, start, end, and optionally strand)
 #'@param fasta_path path to fasta file with .fai index
-#'@param strand return fasta based on strand (default is TRUE if strand exists)
+#'@param strand return sequences based on strand (default is TRUE if strand exists)
 #'@return input dataframe is returned with additional columns `header` and `seq` containing
-#'  a header for fasta file and the DNA sequence
+#'  a header for with the queried interval in samtools region format (1based) and the DNA sequence
 #'@export
 get_sequences <- function(df, fasta_path, strand = TRUE){
 

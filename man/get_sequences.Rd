@@ -2,21 +2,21 @@
 % Please edit documentation in R/get_fasta.R
 \name{get_sequences}
 \alias{get_sequences}
-\title{Extract fasta sequences using bed intervals}
+\title{Extract sequences from fasta using bed intervals}
 \usage{
 get_sequences(df, fasta_path, strand = TRUE)
 }
 \arguments{
-\item{df}{dataframe containing bed intervals (chrom, start, end, and optionally strand)}
+\item{df}{dataframe containing bed intervals (columm names chrom, start, end, and optionally strand)}
 
 \item{fasta_path}{path to fasta file with .fai index}
 
-\item{strand}{return fasta based on strand (default is TRUE if strand exists)}
+\item{strand}{return sequences based on strand (default is TRUE if strand exists)}
 }
 \value{
 input dataframe is returned with additional columns `header` and `seq` containing
- a header for fasta file and the DNA sequence
+ a header for with the queried interval in samtools region format (1based) and the DNA sequence
 }
 \description{
-Extract fasta sequences using bed intervals
+Extract sequences from fasta using bed intervals
 }

@@ -82,7 +82,7 @@ std::vector<int> find_mismatch(std::string bc_to_test,
 
 /*** R
 
-dna_seq <- c("ATCGATCG", "ATCGATGG")
+dna_seq <- c("ATCGATCG")
 dna_seqs <- c("ATCGATCG", "ATCGATGG")
 
 get_hamming(dna_seq, dna_seqs)
