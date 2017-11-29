@@ -46,15 +46,20 @@ int hamming_distance(const std::string& fs, const std::string& ss){
 //' @param all_bcs character vector to compare
 //' @export
 // [[Rcpp::export]]
-std::vector<int> get_hamming(std::string bc_to_test,
+IntegerVector get_hamming(std::string bc_to_test,
                                            std::vector< std::string > all_bcs) {
 
   int n = all_bcs.size() ;
-  std::vector<int> hdists ;
-  hdists.reserve(n) ;
+  IntegerVector hdists(n) ;
+  //IntegerVector hdists.reserve(n) ;
+
+  std::transform(bc_to_test.begin(), bc_to_test.end(), bc_to_test.begin(), toupper) ;
+
   for (int i = 0; i<n; i++){
-    int hdist = hamming_distance(bc_to_test, all_bcs[i]) ;
-    hdists.push_back(hdist) ;
+    std::string bc = all_bcs[i] ;
+    int hdist = hamming_distance(bc_to_test, bc) ;
+    std::transform(bc.begin(), bc.end(), bc.begin(), toupper) ;
+    hdists[i] = hdist ;
   }
 
   return hdists ;

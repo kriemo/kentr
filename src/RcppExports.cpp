@@ -41,7 +41,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // get_hamming
-std::vector<int> get_hamming(std::string bc_to_test, std::vector< std::string > all_bcs);
+IntegerVector get_hamming(std::string bc_to_test, std::vector< std::string > all_bcs);
 RcppExport SEXP _kentr_get_hamming(SEXP bc_to_testSEXP, SEXP all_bcsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
