@@ -10,9 +10,6 @@ r_check_args: '--as-cran --ignore-vignettes'
 
 git:
     submodules: false
-before_install:
-    - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
-    - git submodule update --init --recursive
 
 matrix:
   fast_finish: true
@@ -29,6 +26,8 @@ matrix:
           packages:
            - 'g++-6'
       before_install: |
+        sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+        git submodule update --init --recursive
         mkdir ~/.R
         cat <<EOF > ~/.R/Makevars
         CXX1X=g++-6
@@ -43,6 +42,8 @@ matrix:
           packages:
            - 'g++-6'
       before_install: |
+        sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+        git submodule update --init --recursive
         mkdir ~/.R
         cat <<EOF > ~/.R/Makevars
         CXX1X=g++-6
