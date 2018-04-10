@@ -67,6 +67,15 @@ List get_kmers(CharacterVector seqs, int n = 2){
 
   for(int i = 0; i < n_seqs; i++){
     auto seq = as<std::string>(seqs[i]) ;
+    if (seq.size() < n){
+      //int zero = 0;
+      Rcpp::String chr_s = NA_STRING ;
+      Rcpp::String int_s = NA_INTEGER ;
+      res[i] = DataFrame::create(_["kmer"] = chr_s,
+                               _["counts"] = int_s,
+                               _("stringsAsFactors") = false) ;
+      continue ;
+    }
     auto kmers = getKmers(seq, n) ;
     auto kmer_count = countKmers(kmers) ;
     res[i] = kmer_count ;

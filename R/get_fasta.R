@@ -44,3 +44,42 @@ write_fasta <- function(df, out_path,
   if(gz) R.utils::gzip(path.expand(out_path), remove = T, overwrite = T)
 
 }
+
+#'Extract sequences from fasta using gtf input
+#'
+#'@param df dataframe containing gtf style entries, either in as bed (chrom, start, end) or (seqnames)
+#'@param fasta_path path to fasta file with .fai index
+#'@return data_frame containing transcript id column and sequence column
+#'@export
+gtf_to_seq <- function(df, fasta_path){
+
+  df_cols <- c("chrom", "start", "end",
+               "transcript_id", "exon_number", "strand")
+
+  gtf_cols <- c("seqnames", "start", "end",
+                "transcript_id", "exon_number", "strand")
+
+  if (!all(df_cols %in% colnames(df))) {
+    if (all(gtf_cols %in% colnames(df))){
+      df <- dplyr::rename(df, chrom = seqnames)
+      df <- dplyr::mutate(df, start = start - 1)
+    }
+  } else {
+    stop("unknown columns in supplied dataframe")
+  }
+
+  df <- dplyr::filter(df, type == "exon")
+  df <- dplyr::select(df,
+                      chrom,
+                      start,
+                      end,
+                      transcript_id,
+                      exon_number,
+                      strand)
+
+  seq_df <- get_sequences(df, fasta_path)
+  seq_df <- dplyr::group_by(seq_df, transcript_id)
+  seq_df <- dplyr::arrange(seq_df, exon_number, .by_group = TRUE)
+  res <- dplyr::summarize(seq_df, seq = str_c(seq, collapse = ""))
+  res
+}
