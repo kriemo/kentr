@@ -6,14 +6,29 @@
 
 using namespace Rcpp;
 
-// read_bam
-DataFrame read_bam(std::string bampath);
-RcppExport SEXP _kentr_read_bam(SEXP bampathSEXP) {
+// read_bam_tags
+DataFrame read_bam_tags(std::string bampath, std::vector<std::string> get_tags, std::string region);
+RcppExport SEXP _kentr_read_bam_tags(SEXP bampathSEXP, SEXP get_tagsSEXP, SEXP regionSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type bampath(bampathSEXP);
-    rcpp_result_gen = Rcpp::wrap(read_bam(bampath));
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type get_tags(get_tagsSEXP);
+    Rcpp::traits::input_parameter< std::string >::type region(regionSEXP);
+    rcpp_result_gen = Rcpp::wrap(read_bam_tags(bampath, get_tags, region));
+    return rcpp_result_gen;
+END_RCPP
+}
+// read_bam
+DataFrame read_bam(std::string bampath, std::string region, std::vector<std::string> get_tags);
+RcppExport SEXP _kentr_read_bam(SEXP bampathSEXP, SEXP regionSEXP, SEXP get_tagsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type bampath(bampathSEXP);
+    Rcpp::traits::input_parameter< std::string >::type region(regionSEXP);
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type get_tags(get_tagsSEXP);
+    rcpp_result_gen = Rcpp::wrap(read_bam(bampath, region, get_tags));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -37,6 +52,18 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< CharacterVector >::type vec(vecSEXP);
     rcpp_result_gen = Rcpp::wrap(revComp(vec));
+    return rcpp_result_gen;
+END_RCPP
+}
+// get_hamming_pairs
+IntegerVector get_hamming_pairs(std::vector< std::string > bcs_to_test, std::vector< std::string > all_bcs);
+RcppExport SEXP _kentr_get_hamming_pairs(SEXP bcs_to_testSEXP, SEXP all_bcsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::vector< std::string > >::type bcs_to_test(bcs_to_testSEXP);
+    Rcpp::traits::input_parameter< std::vector< std::string > >::type all_bcs(all_bcsSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_hamming_pairs(bcs_to_test, all_bcs));
     return rcpp_result_gen;
 END_RCPP
 }

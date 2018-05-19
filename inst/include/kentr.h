@@ -28,7 +28,9 @@ public:
   hts_idx_t* idx;
   BGZF* bz;
   bam_hdr_t* header ;
-  BamReader(const std::string& bampath) ;
+  BamReader(const std::string& bampath,
+            bool check_idx = true,
+            int cache_size=10*BGZF_MAX_BLOCK_SIZE) ;
 
   ~BamReader(){
     hts_idx_destroy(idx);

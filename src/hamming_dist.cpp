@@ -41,6 +41,29 @@ int hamming_distance(const std::string& fs, const std::string& ss){
   return hm_distance ;
 }
 
+//' Compare a vector of strings to a vector of strings and report hamming distance
+//' @param bcs_to_test characater vector to get hamming distance
+//' @param all_bcs character vector to compare
+//' @export
+// [[Rcpp::export]]
+IntegerVector get_hamming_pairs(std::vector< std::string > bcs_to_test,
+                                std::vector< std::string > all_bcs) {
+
+  int n = all_bcs.size() ;
+  IntegerVector hdists(n) ;
+
+  for (int i = 0; i<n; i++){
+    std::string x = bcs_to_test[i] ;
+    std::transform(x.begin(), x.end(), x.begin(), ::toupper) ;
+    std::string y = all_bcs[i] ;
+    std::transform(y.begin(), y.end(), y.begin(), ::toupper) ;
+    int hdist = hamming_distance(x, y) ;
+    hdists[i] = hdist ;
+  }
+
+  return hdists ;
+  }
+
 //' Compare a string to a vector of strings and report hamming distance
 //' @param bc_to_test String to get hamming distance
 //' @param all_bcs character vector to compare
@@ -53,18 +76,17 @@ IntegerVector get_hamming(std::string bc_to_test,
   IntegerVector hdists(n) ;
   //IntegerVector hdists.reserve(n) ;
 
-  std::transform(bc_to_test.begin(), bc_to_test.end(), bc_to_test.begin(), toupper) ;
+  std::transform(bc_to_test.begin(), bc_to_test.end(), bc_to_test.begin(), ::toupper) ;
 
   for (int i = 0; i<n; i++){
     std::string bc = all_bcs[i] ;
+    std::transform(bc.begin(), bc.end(), bc.begin(), ::toupper) ;
     int hdist = hamming_distance(bc_to_test, bc) ;
-    std::transform(bc.begin(), bc.end(), bc.begin(), toupper) ;
     hdists[i] = hdist ;
   }
 
   return hdists ;
   }
-
 //' Compare a string to a vector of strings report mismatch position
 //' @param bc_to_test String to check
 //' @param all_bcs character vector to compare
