@@ -13,10 +13,11 @@
 #include <algorithm>
 
 #include <Rcpp.h>
-#include "htslib/hts.h"
-#include "htslib/sam.h"
-#include "htslib/bgzf.h"
-#include "htslib/faidx.h"
+#include "htslib/htslib/hts.h"
+#include "htslib/htslib/sam.h"
+#include "htslib/htslib/bgzf.h"
+#include "htslib/htslib/faidx.h"
+#include "ssw/ssw_cpp.h"
 
 // [[Rcpp::plugins(cpp11)]]
 using namespace Rcpp ;

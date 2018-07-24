@@ -2,11 +2,11 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 read_bam_tags <- function(bampath, get_tags, region = ".") {
-    .Call('_kentr_read_bam_tags', PACKAGE = 'kentr', bampath, get_tags, region)
+    .Call(`_kentr_read_bam_tags`, bampath, get_tags, region)
 }
 
 read_bam <- function(bampath, region, get_tags) {
-    .Call('_kentr_read_bam', PACKAGE = 'kentr', bampath, region, get_tags)
+    .Call(`_kentr_read_bam`, bampath, region, get_tags)
 }
 
 #' Fetch DNA sequence from an indexed fasta file
@@ -14,14 +14,14 @@ read_bam <- function(bampath, region, get_tags) {
 #' @param fapath path to indexed fasta file
 #' @export
 getSeq <- function(df, fapath) {
-    .Call('_kentr_getSeq', PACKAGE = 'kentr', df, fapath)
+    .Call(`_kentr_getSeq`, df, fapath)
 }
 
 #' Reverse complement a vector of DNA sequences
 #' @param vec character vector of DNA [ATCGN]
 #' @export
 revComp <- function(vec) {
-    .Call('_kentr_revComp', PACKAGE = 'kentr', vec)
+    .Call(`_kentr_revComp`, vec)
 }
 
 #' Compare a vector of strings to a vector of strings and report hamming distance
@@ -29,7 +29,7 @@ revComp <- function(vec) {
 #' @param all_bcs character vector to compare
 #' @export
 get_hamming_pairs <- function(bcs_to_test, all_bcs) {
-    .Call('_kentr_get_hamming_pairs', PACKAGE = 'kentr', bcs_to_test, all_bcs)
+    .Call(`_kentr_get_hamming_pairs`, bcs_to_test, all_bcs)
 }
 
 #' Compare a string to a vector of strings and report hamming distance
@@ -37,7 +37,7 @@ get_hamming_pairs <- function(bcs_to_test, all_bcs) {
 #' @param all_bcs character vector to compare
 #' @export
 get_hamming <- function(bc_to_test, all_bcs) {
-    .Call('_kentr_get_hamming', PACKAGE = 'kentr', bc_to_test, all_bcs)
+    .Call(`_kentr_get_hamming`, bc_to_test, all_bcs)
 }
 
 #' Compare a string to a vector of strings report mismatch position
@@ -45,13 +45,21 @@ get_hamming <- function(bc_to_test, all_bcs) {
 #' @param all_bcs character vector to compare
 #' @export
 find_mismatch <- function(bc_to_test, all_bcs) {
-    .Call('_kentr_find_mismatch', PACKAGE = 'kentr', bc_to_test, all_bcs)
+    .Call(`_kentr_find_mismatch`, bc_to_test, all_bcs)
 }
 
 #' get kmer-counts for character vector of sequences
 #' @param n kmer size
 #' @export
 get_kmers <- function(seqs, n = 2L) {
-    .Call('_kentr_get_kmers', PACKAGE = 'kentr', seqs, n)
+    .Call(`_kentr_get_kmers`, seqs, n)
+}
+
+#' Compute complete striped smith waterman alignment between two dna strings (ATCG)
+#' @param query_seq query
+#' @param ref_seq ref
+#' @export
+get_sw <- function(query_seq, ref_seq) {
+    .Call(`_kentr_get_sw`, query_seq, ref_seq)
 }
 

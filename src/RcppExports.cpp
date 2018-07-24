@@ -103,3 +103,33 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// get_sw
+DataFrame get_sw(std::string query_seq, std::string ref_seq);
+RcppExport SEXP _kentr_get_sw(SEXP query_seqSEXP, SEXP ref_seqSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type query_seq(query_seqSEXP);
+    Rcpp::traits::input_parameter< std::string >::type ref_seq(ref_seqSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_sw(query_seq, ref_seq));
+    return rcpp_result_gen;
+END_RCPP
+}
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_kentr_read_bam_tags", (DL_FUNC) &_kentr_read_bam_tags, 3},
+    {"_kentr_read_bam", (DL_FUNC) &_kentr_read_bam, 3},
+    {"_kentr_getSeq", (DL_FUNC) &_kentr_getSeq, 2},
+    {"_kentr_revComp", (DL_FUNC) &_kentr_revComp, 1},
+    {"_kentr_get_hamming_pairs", (DL_FUNC) &_kentr_get_hamming_pairs, 2},
+    {"_kentr_get_hamming", (DL_FUNC) &_kentr_get_hamming, 2},
+    {"_kentr_find_mismatch", (DL_FUNC) &_kentr_find_mismatch, 2},
+    {"_kentr_get_kmers", (DL_FUNC) &_kentr_get_kmers, 2},
+    {"_kentr_get_sw", (DL_FUNC) &_kentr_get_sw, 2},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_kentr(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
+}

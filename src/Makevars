@@ -1,7 +1,8 @@
 CXX = clang++
 CXX_STD = CXX11
-PKG_CPPFLAGS = -I../inst/include -lhts -Lhtslib/
-PKG_LIBS= -lhts -Lhtslib/ -lz -lm
+PKG_CPPFLAGS = -I../inst/include
+PKG_LIBS=  -lz -lm -lhts -Lhtslib/
+
 .PHONY: htslib all
 
 all: $(SHLIB)
@@ -10,3 +11,5 @@ $(SHLIB): htslib
 
 htslib:
 	(cd htslib; $(MAKE) lib-static CC="$(CC)" CFLAGS="$(CFLAGS) $(CPICFLAGS)" AR="$(AR)" RANLIB="$(RANLIB)"; $(MAKE) mostlyclean ; cd ..)
+
+
