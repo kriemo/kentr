@@ -57,9 +57,9 @@ get_kmers <- function(seqs, n = 2L) {
 
 #' Compute complete striped smith waterman alignment between two dna strings (ATCG)
 #' @param query_seq query
-#' @param ref_seq ref
+#' @param ref_seqs ref
 #' @export
-get_sw <- function(query_seq, ref_seq) {
-    .Call(`_kentr_get_sw`, query_seq, ref_seq)
+get_sw <- function(query_seq, ref_seqs) {
+    .Call(`_kentr_get_sw`, query_seq, ref_seqs)
 }
 

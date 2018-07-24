@@ -104,14 +104,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // get_sw
-DataFrame get_sw(std::string query_seq, std::string ref_seq);
-RcppExport SEXP _kentr_get_sw(SEXP query_seqSEXP, SEXP ref_seqSEXP) {
+DataFrame get_sw(std::string query_seq, std::vector<std::string> ref_seqs);
+RcppExport SEXP _kentr_get_sw(SEXP query_seqSEXP, SEXP ref_seqsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type query_seq(query_seqSEXP);
-    Rcpp::traits::input_parameter< std::string >::type ref_seq(ref_seqSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_sw(query_seq, ref_seq));
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type ref_seqs(ref_seqsSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_sw(query_seq, ref_seqs));
     return rcpp_result_gen;
 END_RCPP
 }

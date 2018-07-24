@@ -4,12 +4,12 @@
 \alias{get_sw}
 \title{Compute complete striped smith waterman alignment between two dna strings (ATCG)}
 \usage{
-get_sw(query_seq, ref_seq)
+get_sw(query_seq, ref_seqs)
 }
 \arguments{
 \item{query_seq}{query}
 
-\item{ref_seq}{ref}
+\item{ref_seqs}{ref}
 }
 \description{
 Compute complete striped smith waterman alignment between two dna strings (ATCG)
