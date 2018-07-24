@@ -3,5 +3,5 @@
 #' @import dplyr
 #' @importFrom stringr str_split str_detect str_replace
 #' @import readr
-#' @useDynLib kentr
+#' @useDynLib kentr, .registration = TRUE
 NULL
