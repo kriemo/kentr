@@ -39,5 +39,6 @@ public:
   }
 };
 
-
+CharacterVector revComp(CharacterVector vec) ;
+std::string revComp(std::string seq) ;
 #endif

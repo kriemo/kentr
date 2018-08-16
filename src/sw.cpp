@@ -17,7 +17,14 @@
 // [[Rcpp::export]]
 DataFrame get_sw(std::string query_seq,
                  std::vector<std::string> ref_seqs) {
+
+  std::transform(query_seq.begin(),
+                 query_seq.end(),
+                 query_seq.begin(),
+                 ::toupper) ;
+
   int nx = ref_seqs.size();
+  auto query_seq_rev = revComp(query_seq) ;
 
   NumericVector sw_score(nx) ;
   NumericVector sec_sw_score(nx) ;
@@ -28,9 +35,15 @@ DataFrame get_sw(std::string query_seq,
   IntegerVector sec_rend(nx) ;
   IntegerVector nmis(nx) ;
   CharacterVector cigar(nx) ;
+  CharacterVector strand(nx) ;
 
   for(int i = 0; i < nx; ++i){
     auto ref_seq = ref_seqs[i] ;
+    std::transform(ref_seq.begin(),
+                   ref_seq.end(),
+                   ref_seq.begin(),
+                   ::toupper) ;
+
     int32_t maskLen = strlen(query_seq.c_str())/2;
     maskLen = maskLen < 15 ? 15 : maskLen;
 
@@ -48,17 +61,40 @@ DataFrame get_sw(std::string query_seq,
                   &alignment,
                   maskLen);
 
-   sw_score[i] = alignment.sw_score ;
-   sec_sw_score[i] = alignment.sw_score_next_best ;
-   rstart[i] = alignment.ref_begin;
-   rend[i] = alignment.ref_end;
-   qstart[i] = alignment.query_begin;
-   qend[i] = alignment.query_end;
-   sec_rend[i]  = alignment.ref_end_next_best;
-   nmis[i] = alignment.mismatches ;
-   cigar[i] = alignment.cigar_string ;
-  }
+    StripedSmithWaterman::Alignment rv_alignment;
 
+    // Aligns the revcomp query to the ref
+    aligner.Align(query_seq_rev.c_str(),
+                  ref_seq.c_str(),
+                  ref_seq.size(),
+                  filter,
+                  &rv_alignment,
+                  maskLen);
+   if (alignment.sw_score >=  rv_alignment.sw_score) {
+
+     sw_score[i] = alignment.sw_score ;
+     sec_sw_score[i] = alignment.sw_score_next_best ;
+     rstart[i] = alignment.ref_begin;
+     rend[i] = alignment.ref_end;
+     qstart[i] = alignment.query_begin;
+     qend[i] = alignment.query_end;
+     sec_rend[i]  = alignment.ref_end_next_best;
+     nmis[i] = alignment.mismatches ;
+     cigar[i] = alignment.cigar_string ;
+     strand[i] = "+" ;
+   } else {
+     sw_score[i] = rv_alignment.sw_score ;
+     sec_sw_score[i] = rv_alignment.sw_score_next_best ;
+     rstart[i] = rv_alignment.ref_begin;
+     rend[i] = rv_alignment.ref_end;
+     qstart[i] = rv_alignment.query_begin;
+     qend[i] = rv_alignment.query_end;
+     sec_rend[i]  = rv_alignment.ref_end_next_best;
+     nmis[i] = rv_alignment.mismatches ;
+     cigar[i] = rv_alignment.cigar_string ;
+     strand[i] = "-" ;
+   }
+  }
   return DataFrame::create(_("sw_score") = sw_score,
                           _("secondary_sw_score") = sec_sw_score,
                           _("rstart") = rstart,
@@ -68,6 +104,7 @@ DataFrame get_sw(std::string query_seq,
                           _("secondary_rend") = sec_rend,
                           _("nmismatches") = nmis,
                           _("cigar") = cigar,
+                          _("strand") = strand,
                           _("stringsAsFactors") = false) ;
 }
 

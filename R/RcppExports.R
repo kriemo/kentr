@@ -9,6 +9,9 @@ read_bam <- function(bampath, region, get_tags) {
     .Call(`_kentr_read_bam`, bampath, region, get_tags)
 }
 
+#' Reverse complement a DNA sequence
+NULL
+
 #' Fetch DNA sequence from an indexed fasta file
 #' @param df dataframe wtih columns chrom start and end
 #' @param fapath path to indexed fasta file

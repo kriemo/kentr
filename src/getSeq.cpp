@@ -97,3 +97,28 @@ CharacterVector revComp(CharacterVector vec){
   }
   return out_vec;
 }
+
+//' Reverse complement a DNA sequence
+std::string revComp(std::string seq){
+
+  std::unordered_map<char, char> bp_comp ;
+  bp_comp = {
+    {'C', 'G'},
+    {'G', 'C'},
+    {'T', 'A'},
+    {'A', 'T'},
+    {'N', 'N'},
+    {'n', 'n'},
+    {'c', 'g'},
+    {'g', 'c'},
+    {'t', 'a'},
+    {'a', 't'}
+  };
+    size_t len = seq.size();
+    for (int j = 0; j < len; j++){
+      auto nt = seq[j] ;
+      seq[j] = bp_comp[nt] ;
+    }
+    std::reverse(seq.begin(), seq.end()) ;
+    return seq;
+}
