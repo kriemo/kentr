@@ -43,6 +43,8 @@
 #include <string.h>
 #include <math.h>
 #include "ssw.h"
+#include <R.h>
+#include <Rinternals.h>
 
 #ifdef __GNUC__
 #define LIKELY(x) __builtin_expect((x),1)
@@ -86,7 +88,7 @@ struct _profile{
 	uint8_t bias;
 };
 
-/* array index is an ASCII character value from a CIGAR, 
+/* array index is an ASCII character value from a CIGAR,
    element value is the corresponding integer opcode between 0 and 8 */
 const uint8_t encoded_ops[] = {
 	0,         0,         0,         0,
@@ -604,8 +606,7 @@ static cigar* banded_sw (const int8_t* ref,
 			++s2;
 			kroundup32(s2);
 			if (s2 < 0) {
-				fprintf(stderr, "Alignment score and position are not consensus.\n");
-				exit(1);
+				error("Alignment score and position are not consensus.\n");
 			}
 			direction = (int8_t*)realloc(direction, s2 * sizeof(int8_t));
 		}
@@ -694,7 +695,7 @@ static cigar* banded_sw (const int8_t* ref,
 				op = 'D';
 				break;
 			default:
-				fprintf(stderr, "Trace back error: %d.\n", direction_line[temp1 - 1]);
+				Rprintf("Trace back error: %d.\n", direction_line[temp1 - 1]);
 				free(direction);
 				free(h_c);
 				free(e_b);
@@ -819,7 +820,7 @@ s_align* ssw_align (const s_profile* prof,
 	r->cigar = 0;
 	r->cigarLen = 0;
 	if (maskLen < 15) {
-		fprintf(stderr, "When maskLen < 15, the function ssw_align doesn't return 2nd best alignment information.\n");
+		Rprintf("When maskLen < 15, the function ssw_align doesn't return 2nd best alignment information.\n");
 	}
 
 	// Find the alignment scores and ending positions
@@ -830,7 +831,7 @@ s_align* ssw_align (const s_profile* prof,
 			bests = sw_sse2_word(ref, 0, refLen, readLen, weight_gapO, weight_gapE, prof->profile_word, -1, maskLen);
 			word = 1;
 		} else if (bests[0].score == 255) {
-			fprintf(stderr, "Please set 2 to the score_size parameter of the function ssw_init, otherwise the alignment results will be incorrect.\n");
+			Rprintf("Please set 2 to the score_size parameter of the function ssw_init, otherwise the alignment results will be incorrect.\n");
 			free(r);
 			return NULL;
 		}
@@ -838,7 +839,7 @@ s_align* ssw_align (const s_profile* prof,
 		bests = sw_sse2_word(ref, 0, refLen, readLen, weight_gapO, weight_gapE, prof->profile_word, -1, maskLen);
 		word = 1;
 	}else {
-		fprintf(stderr, "Please call the function ssw_init before ssw_align.\n");
+		Rprintf("Please call the function ssw_init before ssw_align.\n");
 		free(r);
 		return NULL;
 	}
@@ -913,14 +914,14 @@ uint32_t* store_previous_m (int8_t choice,	// 0: current not M, 1: current match
 					   uint32_t* new_cigar) {
 
 	if ((*length_m) && (choice == 2 || !choice)) {
-		new_cigar = add_cigar (new_cigar, p, s, (*length_m), '='); 
+		new_cigar = add_cigar (new_cigar, p, s, (*length_m), '=');
 		(*length_m) = 0;
-	} else if ((*length_x) && (choice == 1 || !choice)) { 
-		new_cigar = add_cigar (new_cigar, p, s, (*length_x), 'X'); 
+	} else if ((*length_x) && (choice == 1 || !choice)) {
+		new_cigar = add_cigar (new_cigar, p, s, (*length_x), 'X');
 		(*length_x) = 0;
 	}
 	return new_cigar;
-}				
+}
 
 /*! @function:
      1. Calculate the number of mismatches.
@@ -954,11 +955,11 @@ int32_t mark_mismatch (int32_t ref_begin1,
 				if (*ref != *read) {
 					++ mismatch_length;
 					// the previous is match; however the current one is mismatche
-					new_cigar = store_previous_m (2, &length_m, &length_x, &p, &s, new_cigar);			
+					new_cigar = store_previous_m (2, &length_m, &length_x, &p, &s, new_cigar);
 					++ length_x;
 				} else {
 					// the previous is mismatch; however the current one is matche
-					new_cigar = store_previous_m (1, &length_m, &length_x, &p, &s, new_cigar);			
+					new_cigar = store_previous_m (1, &length_m, &length_x, &p, &s, new_cigar);
 					++ length_m;
 				}
 				++ ref;
@@ -967,21 +968,21 @@ int32_t mark_mismatch (int32_t ref_begin1,
 		}else if (op == 'I') {
 			read += length;
 			mismatch_length += length;
-			new_cigar = store_previous_m (0, &length_m, &length_x, &p, &s, new_cigar);			
-			new_cigar = add_cigar (new_cigar, &p, &s, length, 'I'); 
+			new_cigar = store_previous_m (0, &length_m, &length_x, &p, &s, new_cigar);
+			new_cigar = add_cigar (new_cigar, &p, &s, length, 'I');
 		}else if (op == 'D') {
 			ref += length;
 			mismatch_length += length;
-			new_cigar = store_previous_m (0, &length_m, &length_x, &p, &s, new_cigar);			
-			new_cigar = add_cigar (new_cigar, &p, &s, length, 'D'); 
+			new_cigar = store_previous_m (0, &length_m, &length_x, &p, &s, new_cigar);
+			new_cigar = add_cigar (new_cigar, &p, &s, length, 'D');
 		}
 	}
 	new_cigar = store_previous_m (0, &length_m, &length_x, &p, &s, new_cigar);
-	
+
 	length = readLen - read_end1 - 1;
 	if (length > 0) new_cigar = add_cigar(new_cigar, &p, &s, length, 'S');
-	
-	(*cigarLen) = p;	
+
+	(*cigarLen) = p;
 	free(*cigar);
 	(*cigar) = new_cigar;
 	return mismatch_length;
