@@ -5,3 +5,14 @@
 #' @import readr
 #' @useDynLib kentr, .registration = TRUE
 NULL
+
+utils::globalVariables(c(".",
+                         "header",
+                         "seqnames",
+                         "start",
+                         "type",
+                         "chrom",
+                         "end",
+                         "transcript_id",
+                         "exon_number",
+                         "strand"))

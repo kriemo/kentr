@@ -49,6 +49,7 @@ find_mismatch <- function(bc_to_test, all_bcs) {
 }
 
 #' get kmer-counts for character vector of sequences
+#' @param seqs character vector of sequences
 #' @param n kmer size
 #' @export
 get_kmers <- function(seqs, n = 2L) {

@@ -7,6 +7,8 @@
 get_kmers(seqs, n = 2L)
 }
 \arguments{
+\item{seqs}{character vector of sequences}
+
 \item{n}{kmer size}
 }
 \description{

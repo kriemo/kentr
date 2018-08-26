@@ -57,6 +57,7 @@ DataFrame countKmers(CharacterVector kmers){
 
 
 //' get kmer-counts for character vector of sequences
+//' @param seqs character vector of sequences
 //' @param n kmer size
 //' @export
 // [[Rcpp::export]]
