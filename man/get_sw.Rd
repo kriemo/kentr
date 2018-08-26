@@ -7,10 +7,12 @@
 get_sw(query_seq, ref_seqs)
 }
 \arguments{
-\item{query_seq}{query}
+\item{query_seq}{query sequence as character vector of length one}
 
-\item{ref_seqs}{ref}
+\item{ref_seqs}{reference sequences as a character vector}
 }
 \description{
-Compute complete striped smith waterman alignment between two dna strings (ATCG)
+Alignments will be computed for both forward and reverse complement. Forward
+alignments will be indicated with strand "+", whereas reverse complement alignments will
+be reported as "-". The best alignment is reported
 }

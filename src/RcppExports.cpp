@@ -7,28 +7,30 @@
 using namespace Rcpp;
 
 // read_bam_tags
-DataFrame read_bam_tags(std::string bampath, std::vector<std::string> get_tags, std::string region);
-RcppExport SEXP _kentr_read_bam_tags(SEXP bampathSEXP, SEXP get_tagsSEXP, SEXP regionSEXP) {
+DataFrame read_bam_tags(std::string bampath, std::vector<std::string> tag_ids, std::vector<std::string> tag_types, std::string region);
+RcppExport SEXP _kentr_read_bam_tags(SEXP bampathSEXP, SEXP tag_idsSEXP, SEXP tag_typesSEXP, SEXP regionSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type bampath(bampathSEXP);
-    Rcpp::traits::input_parameter< std::vector<std::string> >::type get_tags(get_tagsSEXP);
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type tag_ids(tag_idsSEXP);
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type tag_types(tag_typesSEXP);
     Rcpp::traits::input_parameter< std::string >::type region(regionSEXP);
-    rcpp_result_gen = Rcpp::wrap(read_bam_tags(bampath, get_tags, region));
+    rcpp_result_gen = Rcpp::wrap(read_bam_tags(bampath, tag_ids, tag_types, region));
     return rcpp_result_gen;
 END_RCPP
 }
 // read_bam
-DataFrame read_bam(std::string bampath, std::string region, std::vector<std::string> get_tags);
-RcppExport SEXP _kentr_read_bam(SEXP bampathSEXP, SEXP regionSEXP, SEXP get_tagsSEXP) {
+DataFrame read_bam(std::string bampath, std::string region, std::vector<std::string> tag_ids, std::vector<std::string> tag_types);
+RcppExport SEXP _kentr_read_bam(SEXP bampathSEXP, SEXP regionSEXP, SEXP tag_idsSEXP, SEXP tag_typesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type bampath(bampathSEXP);
     Rcpp::traits::input_parameter< std::string >::type region(regionSEXP);
-    Rcpp::traits::input_parameter< std::vector<std::string> >::type get_tags(get_tagsSEXP);
-    rcpp_result_gen = Rcpp::wrap(read_bam(bampath, region, get_tags));
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type tag_ids(tag_idsSEXP);
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type tag_types(tag_typesSEXP);
+    rcpp_result_gen = Rcpp::wrap(read_bam(bampath, region, tag_ids, tag_types));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -117,8 +119,8 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_kentr_read_bam_tags", (DL_FUNC) &_kentr_read_bam_tags, 3},
-    {"_kentr_read_bam", (DL_FUNC) &_kentr_read_bam, 3},
+    {"_kentr_read_bam_tags", (DL_FUNC) &_kentr_read_bam_tags, 4},
+    {"_kentr_read_bam", (DL_FUNC) &_kentr_read_bam, 4},
     {"_kentr_getSeq", (DL_FUNC) &_kentr_getSeq, 2},
     {"_kentr_revComp", (DL_FUNC) &_kentr_revComp, 1},
     {"_kentr_get_hamming_pairs", (DL_FUNC) &_kentr_get_hamming_pairs, 2},

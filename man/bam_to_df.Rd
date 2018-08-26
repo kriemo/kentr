@@ -4,10 +4,15 @@
 \alias{bam_to_df}
 \title{Read in bam file as a trbl_interval}
 \usage{
-bam_to_df(filename = NULL, region = ".", tags = "")
+bam_to_df(filename = NULL, region = ".", tags = NULL)
 }
 \arguments{
 \item{filename}{path to bam file}
+
+\item{region}{samtools region query}
+
+\item{tags}{bam tags to return, supplied with type suffix, i.e. "XS:A" for character,
+"AS:i" for integer, and "CB:Z" for string}
 }
 \description{
 Read in bam file as a trbl_interval

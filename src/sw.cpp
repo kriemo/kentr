@@ -11,8 +11,11 @@
 
 
 //' Compute complete striped smith waterman alignment between two dna strings (ATCG)
-//' @param query_seq query
-//' @param ref_seqs ref
+//' @description Alignments will be computed for both forward and reverse complement. Forward
+//' alignments will be indicated with strand "+", whereas reverse complement alignments will
+//' be reported as "-". The best alignment is reported
+//' @param query_seq query sequence as character vector of length one
+//' @param ref_seqs reference sequences as a character vector
 //' @export
 // [[Rcpp::export]]
 DataFrame get_sw(std::string query_seq,

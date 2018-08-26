@@ -80,6 +80,6 @@ gtf_to_seq <- function(df, fasta_path){
   seq_df <- get_sequences(df, fasta_path)
   seq_df <- dplyr::group_by(seq_df, transcript_id)
   seq_df <- dplyr::arrange(seq_df, exon_number, .by_group = TRUE)
-  res <- dplyr::summarize(seq_df, seq = str_c(seq, collapse = ""))
+  res <- dplyr::summarize(seq_df, seq = stringr::str_c(seq, collapse = ""))
   res
 }

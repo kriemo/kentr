@@ -98,7 +98,7 @@ CharacterVector revComp(CharacterVector vec){
   return out_vec;
 }
 
-//' Reverse complement a DNA sequence
+// Reverse complement a DNA sequence
 std::string revComp(std::string seq){
 
   std::unordered_map<char, char> bp_comp ;

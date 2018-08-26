@@ -19,9 +19,26 @@ BamReader::BamReader(const std::string& bampath,
     }
   }
 
+std::string getTags(bam1_t* &aln,
+                    std::string &tag_type,
+                    std::string &tag_id) {
+  std::string tag ;
+  if(tag_type == "Z"){
+    tag = std::string(bam_aux2Z(bam_aux_get(aln, tag_id.c_str())))  ;
+  } else if (tag_type == "i" ){
+    auto int_tag = bam_aux2i(bam_aux_get(aln, tag_id.c_str())) ;
+    tag = std::to_string(int_tag) ;
+  } else if (tag_type == "A" ){
+    char char_tag = bam_aux2A(bam_aux_get(aln, tag_id.c_str())) ;
+    tag = std::to_string(char_tag) ;
+  }
+  return(tag) ;
+}
+
 // [[Rcpp::export]]
 DataFrame read_bam_tags(std::string bampath,
-                        std::vector<std::string> get_tags,
+                        std::vector<std::string> tag_ids,
+                        std::vector<std::string> tag_types,
                         std::string region = ".") {
   // open bam
   BamReader bfile(bampath, false) ;
@@ -37,7 +54,7 @@ DataFrame read_bam_tags(std::string bampath,
   std::vector<std::string> readnames ;
 
   int ntags ;
-  ntags = get_tags.size() ;
+  ntags = tag_ids.size() ;
 
   Rcpp::List out_df(5 + ntags) ;
   Rcpp::CharacterVector names(5 + ntags) ;
@@ -60,7 +77,7 @@ DataFrame read_bam_tags(std::string bampath,
     std::string strand = reversed ? "-" : "+" ;
 
     for (int i = 0; i < ntags; ++i){
-      auto tag = std::string(bam_aux2Z(bam_aux_get(read, get_tags[i].c_str())))  ;
+      auto tag = getTags(read, tag_types[i], tag_ids[i]) ;
       tags[i].push_back(tag) ;
     }
 
@@ -89,7 +106,7 @@ DataFrame read_bam_tags(std::string bampath,
     int j ;
     j= i + 5 ;
     out_df[j] = tags[i] ;
-    names[j] = get_tags[i] ;
+    names[j] = tag_ids[i] ;
   }
 
   Rcpp::DataFrame result(out_df);
@@ -156,10 +173,12 @@ DataFrame read_bam_default(std::string bampath,
 // [[Rcpp::export]]
 DataFrame read_bam(std::string bampath,
                    std::string region,
-                   std::vector<std::string> get_tags){
+                   std::vector<std::string> tag_ids,
+                   std::vector<std::string> tag_types){
   DataFrame res ;
-  if (get_tags[0] != "") {
-    res = read_bam_tags(bampath, get_tags, region) ;
+
+  if (tag_ids[0] != "" && tag_types[0] != "") {
+    res = read_bam_tags(bampath, tag_ids, tag_types, region) ;
   } else {
     res = read_bam_default(bampath, region) ;
   }
