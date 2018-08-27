@@ -10,6 +10,6 @@ all: $(SHLIB)
 $(SHLIB): htslib
 
 htslib:
-	(cd htslib; $(MAKE) lib-shared CC="$(CC)" CFLAGS="$(CFLAGS) $(CPICFLAGS)" AR="$(AR)" RANLIB="$(RANLIB)"; $(MAKE) mostlyclean ; cd ..)
+	(cd htslib; $(MAKE) lib-static CC="$(CC)" CFLAGS="$(CFLAGS) $(CPICFLAGS)" AR="$(AR)" RANLIB="$(RANLIB)"; $(MAKE) mostlyclean ; rm libhts.a; cd ..)
 
 
