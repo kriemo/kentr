@@ -1,20 +1,24 @@
 
-kentr 
-====
-[![Build Status](https://travis-ci.org/kriemo/kentr.svg?branch=master)](https://travis-ci.org/kriemo/kentr)
+# kentr
 
-An R package with a collection of functions for working with sequence data in R. 
-Wraps the [`htslib`](http://www.htslib.org/) C library for querying indexed fasta files.
+[![Build
+Status](https://travis-ci.org/kriemo/kentr.svg?branch=master)](https://travis-ci.org/kriemo/kentr)
 
-```r
+A R package with a collection of functions for working with sequence
+data in R. Wraps the [`htslib`](http://www.htslib.org/) C library and
+the
+[`ssw`](https://github.com/mengyao/Complete-Striped-Smith-Waterman-Library)
+Smith-Waterman alignment C/C++ library.
+
+``` r
 #install.packages('devtools')
 devtools::install_github('kriemo/kentr')
 ```
 
-Basic Usage
-===========
+## Basic Usage
 
-To extract sequences from indexed fasta:
+### Extract sequences from fasta:
+
 ``` r
 library(kentr)
 # generate data.frame (or tibble) with bed coordinates
@@ -27,6 +31,7 @@ df
 #>   chrom start   end
 #> 1  chr1 20000 20025
 
+
 # path to fasta file (with fai samtools faidx index)
 fa_path <- system.file("extdata", "test.fasta", package = "kentr")
 
@@ -35,10 +40,9 @@ get_sequences(df, fa_path)
 #> 1  chr1 20000 20025 chr1:20000-20025 cctggtgctcccacaaaggagaagg
 ```
 
-To compute hamming distance between sequences:
+### Compute Hamming distances:
 
 ``` r
-library(kentr)
 fa_path <- system.file("extdata", "test.fasta", package = "kentr")
 df <- data.frame(chrom = "chr1",
                  start = c(20000, 25000),
@@ -57,9 +61,9 @@ get_hamming(seq1, seq2)
 #> [1] 14
 ```
 
-To count kmers in sequences:
+### Count kmers in sequences
+
 ``` r
-library(kentr)
 library(tidyverse)
 
 fa_path <- system.file("extdata", "test.fasta", package = "kentr")
@@ -127,11 +131,10 @@ get_kmers(seqs$seq, n = 2)
 seqs <- as_data_frame(seqs)
 seqs
 #> # A tibble: 2 x 5
-#>    chrom start   end           header
-#>   <fctr> <dbl> <dbl>            <chr>
-#> 1   chr1 20000 20500 chr1:20000-20500
-#> 2   chr1 25000 25500 chr1:25000-25500
-#> # ... with 1 more variables: seq <chr>
+#>   chrom start   end header       seq                                      
+#>   <fct> <dbl> <dbl> <chr>        <chr>                                    
+#> 1 chr1  20000 20500 chr1:20000-… cctggtgctcccacaaaggagaagggctgatcactcaaag…
+#> 2 chr1  25000 25500 chr1:25000-… GCTTCAGCCTGCACAGATAGGGGAGTAGGGGACAGAGCAT…
 
 kmers <- mutate(seqs, 
                 kmers = get_kmers(seq)) %>% 
@@ -139,24 +142,50 @@ kmers <- mutate(seqs,
                 
 kmers
 #> # A tibble: 2 x 2
-#>             header                 kmers
-#>              <chr>                <list>
-#> 1 chr1:20000-20500 <data.frame [16 x 2]>
-#> 2 chr1:25000-25500 <data.frame [16 x 2]>
+#>   header           kmers                
+#>   <chr>            <list>               
+#> 1 chr1:20000-20500 <data.frame [16 × 2]>
+#> 2 chr1:25000-25500 <data.frame [16 × 2]>
 
 unnest(kmers)
 #> # A tibble: 32 x 3
-#>              header   kmer counts
-#>               <chr> <fctr>  <int>
-#>  1 chr1:20000-20500     AA     51
-#>  2 chr1:20000-20500     AC     28
-#>  3 chr1:20000-20500     AG     47
-#>  4 chr1:20000-20500     AT     29
-#>  5 chr1:20000-20500     CA     50
-#>  6 chr1:20000-20500     CC     24
-#>  7 chr1:20000-20500     CG      9
-#>  8 chr1:20000-20500     CT     27
-#>  9 chr1:20000-20500     GA     39
-#> 10 chr1:20000-20500     GC     31
+#>    header           kmer  counts
+#>    <chr>            <chr>  <int>
+#>  1 chr1:20000-20500 AA        51
+#>  2 chr1:20000-20500 AC        28
+#>  3 chr1:20000-20500 AG        47
+#>  4 chr1:20000-20500 AT        29
+#>  5 chr1:20000-20500 CA        50
+#>  6 chr1:20000-20500 CC        24
+#>  7 chr1:20000-20500 CG         9
+#>  8 chr1:20000-20500 CT        27
+#>  9 chr1:20000-20500 GA        39
+#> 10 chr1:20000-20500 GC        31
 #> # ... with 22 more rows
+```
+
+### Perform Smith-Waterman alignment
+
+Uses the
+[Complete-Striped-Smith-Waterman-Library](https://github.com/mengyao/Complete-Striped-Smith-Waterman-Library)
+to perform alignment between a query sequence and vector of reference
+sequences.
+
+``` r
+query_seq <- seqs$seq[1]
+ref_seqs <- seqs$seq
+
+get_sw(query_seq, ref_seqs)
+#>   sw_score secondary_sw_score rstart rend qstart qend secondary_rend
+#> 1     1000                498      0  499      0  499            248
+#> 2      112                 49     11  482     11  492            190
+#>   nmismatches
+#> 1           0
+#> 2         272
+#>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   cigar
+#> 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  500=
+#> 2 11S4=1X1=4D4=1X4=2I2=5I2=1X2=3D4=1D2=1D1=2X3=2D3=1X2=3X3=1X1=1D1=1X3=2D1=3I2=2X3=2D2=1X2=1X2=1X1=3X2=1I2=3D2=1X1=1X1=1X1=3I1=1X3=2X1=1X2=5I1X1=1X2=1D1=1X2=1I1=1X1=1X2=3I2=1X1=2I1=1X2=1D2=1D2=1X2=1X2=1X7=6D2=5I3=1X1=1X1=5I2=1X4=2D1X4=1X2=6I2=5I1=1X1=2X1=1X3=2D2=1X1=2X4=5I2=4I1=1X3=1X1=2X2=5I4=2D2=1X6=2I1X1=1X2=1I1=3I5=2D4=5D4=6D4=1I1=1I3=3D1=1X4=7D2=3D2=4D3=3I3=1X1=1X2=1X1=2I5=1X2=2D7=3D3=1I2=1I1=1X2=2X1=4I1=4X5=2X1=1D3=1X3=7I2=3I3=3I1=1I2=1X3=1X4=3I2=1X2=1X3=1X4=1X2=5D1=1X4=3D3=1X2=1D2=2X2=3D2=3D3=1X1=1I1=1X2=2I1=1X3=1X2=4D5=7S
+#>   strand
+#> 1      +
+#> 2      +
 ```

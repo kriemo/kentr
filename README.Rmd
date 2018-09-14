@@ -1,0 +1,107 @@
+---
+output: github_document
+---
+
+```{r, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+options(tidyverse.quiet = TRUE)
+```
+
+# kentr 
+
+[![Build Status](https://travis-ci.org/kriemo/kentr.svg?branch=master)](https://travis-ci.org/kriemo/kentr)
+
+
+A R package with a collection of functions for working with sequence data in R. 
+Wraps the [`htslib`](http://www.htslib.org/) C library and the [`ssw`](https://github.com/mengyao/Complete-Striped-Smith-Waterman-Library) Smith-Waterman  alignment C/C++ library.
+
+```r
+#install.packages('devtools')
+devtools::install_github('kriemo/kentr')
+```
+
+## Basic Usage
+
+### Extract sequences from fasta:
+```{r}
+library(kentr)
+# generate data.frame (or tibble) with bed coordinates
+
+df <- data.frame(chrom = "chr1",
+                 start = 20000,
+                 end = 20025)
+
+df
+
+
+# path to fasta file (with fai samtools faidx index)
+fa_path <- system.file("extdata", "test.fasta", package = "kentr")
+
+get_sequences(df, fa_path)
+```
+
+### Compute Hamming distances:
+
+```{r}
+fa_path <- system.file("extdata", "test.fasta", package = "kentr")
+df <- data.frame(chrom = "chr1",
+                 start = c(20000, 25000),
+                 end = c(20025, 25025))
+
+df
+
+seqs <- get_sequences(df, fa_path)
+
+seq1 <- seqs[1, "seq"]
+seq2 <- seqs[2, "seq"]
+get_hamming(seq1, seq2)
+```
+
+
+### Count kmers in sequences
+
+```{r}
+library(tidyverse)
+
+fa_path <- system.file("extdata", "test.fasta", package = "kentr")
+df <- data.frame(chrom = "chr1",
+                 start = c(20000, 25000),
+                 end = c(20500, 25500))
+
+df
+
+seqs <- get_sequences(df, fa_path)
+
+seqs
+
+# returns list with a dataframe of kmers and counts for each sequence
+get_kmers(seqs$seq, n = 2)
+
+# use with dplyr tibbles 
+
+seqs <- as_data_frame(seqs)
+seqs
+
+kmers <- mutate(seqs, 
+                kmers = get_kmers(seq)) %>% 
+                select(header, kmers) 
+                
+kmers
+
+unnest(kmers)
+```
+
+### Perform Smith-Waterman alignment
+
+Uses the [Complete-Striped-Smith-Waterman-Library](https://github.com/mengyao/Complete-Striped-Smith-Waterman-Library) to perform alignment between a query sequence and vector of reference sequences. 
+```{r}
+query_seq <- seqs$seq[1]
+ref_seqs <- seqs$seq
+
+get_sw(query_seq, ref_seqs)
+```
