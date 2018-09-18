@@ -13,6 +13,26 @@ bp_comp <- function(nt){
   comp[nt] %>% unname()
 }
 
+#' Download a file if it doesn't exist
+#' @param url download url
+#' @param filename output file name
+#' @param gunzip uncompress file using gzip Default = FALSE, if suffix contains .gz this will
+#' be removed.
+#' @export
+get_file <- function(url, filename, gunzip = FALSE){
+  if(!file.exists(filename)){
+    utils::download.file(url, filename)
+  }
+
+  if(gunzip){
+    if(endsWith(filename, ".gz")) {
+      R.utils::gunzip(filename)
+    } else {
+      stop(paste0(filename, " not a gzipped file"))
+    }
+  }
+}
+
 #' Read multiple tsv files and join by common cols
 #' @param .dir directory path
 #' @param .pattern wildcard for file matching

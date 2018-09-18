@@ -2,6 +2,8 @@
 #' @importFrom  purrr map_chr map
 #' @import dplyr
 #' @importFrom stringr str_split str_detect str_replace str_c
+#' @importFrom utils download.file
+#' @importFrom R.utils gzip
 #' @import readr
 #' @useDynLib kentr, .registration = TRUE
 NULL
