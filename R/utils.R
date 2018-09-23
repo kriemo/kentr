@@ -19,7 +19,7 @@ bp_comp <- function(nt){
 #' @param gunzip uncompress file using gzip Default = FALSE, if suffix contains .gz this will
 #' be removed.
 #' @export
-get_file <- function(url, filename, gunzip = FALSE){
+download_file <- function(url, filename, gunzip = FALSE){
   if(!file.exists(filename)){
     utils::download.file(url, filename)
   }
@@ -54,18 +54,3 @@ n_inner_join <- function(.dir, .pattern, .cols, ...){
   dat
 }
 
-#' Gzip tsv output
-#' @param df df to save with [readr::write_tsv()]
-#' @param name output file name
-#' @param ... additional arguments passed to [readr::write_tsv()]
-#' @export
-write_gztsv <- function(df, name, ...){
-  # write output as gzipped, supply name without .gz
-  if(stringr::str_detect(name, ".gz$")){
-    uncompressed_name <- stringr::str_replace(name, ".gz$", "")
-  } else {
-    uncompressed_name <- name
-  }
-  readr::write_tsv(df, uncompressed_name, ...)
-  system(paste0("gzip -f ", uncompressed_name))
-}
