@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read in bam file as a trbl_interval — bam_to_df • kentr</title>
+<title>Read in bam file as a data.frame — bam_to_df • kentr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Read in bam file as a trbl_interval — bam_to_df" />
+<meta property="og:title" content="Read in bam file as a data.frame — bam_to_df" />
 
-<meta property="og:description" content="Read in bam file as a trbl_interval" />
+<meta property="og:description" content="Read in bam file as a data.frame" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -97,14 +97,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read in bam file as a trbl_interval</h1>
+    <h1>Read in bam file as a data.frame</h1>
     <small class="dont-index">Source: <a href='https://github.com/kriemo/kentr/blob/master/R/get_bam.R'><code>R/get_bam.R</code></a></small>
     <div class="hidden name"><code>bam_to_df.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Read in bam file as a trbl_interval</p>
+    <p>Read in bam file as a data.frame</p>
     
     </div>
 
@@ -119,22 +119,72 @@
     </tr>
     <tr>
       <th>region</th>
-      <td><p>samtools region query</p></td>
+      <td><p>samtools region query string (i.e. chr1:100-1000)</p></td>
     </tr>
     <tr>
       <th>tags</th>
       <td><p>bam tags to return, supplied with type suffix, i.e. "XS:A" for character,
-"AS:i" for integer, and "CB:Z" for string</p></td>
+"AS:i" for integer, and "CB:Z" for string. Bam entries with missing tags will return empty
+strings.</p></td>
     </tr>
     </table>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>bam_file</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"extdata"</span>, <span class='st'>"small_sorted.bam"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"kentr"</span>)
+<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>bam_to_df</span>(<span class='no'>bam_file</span>)
+<span class='fu'>head</span>(<span class='no'>res</span>)</div><div class='output co'>#&gt;   chrom   start     end                                            name strand
+#&gt; 1  chr1 3015399 3015499 HWI-ST1133R:8:2304:12130:31201#GAACCCATTCTTTCCC      -
+#&gt; 2  chr1 3015400 3015500 HWI-ST1133R:8:1313:13728:38795#GAACCCATTCTTTCCC      +
+#&gt; 3  chr1 3019635 3019735 HWI-ST1133R:8:1209:10428:12865#GAACCCATTCTTTCCC      +
+#&gt; 4  chr1 3019635 3019735  HWI-ST1133R:8:2315:2419:54036#GAACCCATTCTTTCCC      -
+#&gt; 5  chr1 3043511 3043611  HWI-ST1133R:8:1107:9218:64408#GAACCCATTCTTTCCC      -
+#&gt; 6  chr1 3053963 3054063  HWI-ST1133R:8:2212:2473:90987#GAACCCATTCTTTCCC      +</div><div class='input'>
+<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>bam_to_df</span>(<span class='no'>bam_file</span>,
+                 <span class='kw'>region</span> <span class='kw'>=</span> <span class='st'>"chr1:3e6-3.1e6"</span>,
+                 <span class='kw'>tags</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"XS:A"</span>, <span class='st'>"AS:i"</span>, <span class='st'>"CB:Z"</span>))
+<span class='no'>res</span></div><div class='output co'>#&gt;    chrom   start     end                                            name strand
+#&gt; 1   chr1 3015399 3015499 HWI-ST1133R:8:2304:12130:31201#GAACCCATTCTTTCCC      -
+#&gt; 2   chr1 3015400 3015500 HWI-ST1133R:8:1313:13728:38795#GAACCCATTCTTTCCC      +
+#&gt; 3   chr1 3019635 3019735 HWI-ST1133R:8:1209:10428:12865#GAACCCATTCTTTCCC      +
+#&gt; 4   chr1 3019635 3019735  HWI-ST1133R:8:2315:2419:54036#GAACCCATTCTTTCCC      -
+#&gt; 5   chr1 3043511 3043611  HWI-ST1133R:8:1107:9218:64408#GAACCCATTCTTTCCC      -
+#&gt; 6   chr1 3053963 3054063  HWI-ST1133R:8:2212:2473:90987#GAACCCATTCTTTCCC      +
+#&gt; 7   chr1 3054014 3054114  HWI-ST1133R:8:2212:2473:90987#GAACCCATTCTTTCCC      -
+#&gt; 8   chr1 3058369 3058469   HWI-ST1133R:8:2309:7368:5858#GAACCCATTCTTTCCC      -
+#&gt; 9   chr1 3058645 3058745 HWI-ST1133R:8:1111:14310:29996#GAACCCATTCTTTCCC      -
+#&gt; 10  chr1 3058647 3058746 HWI-ST1133R:8:2302:13219:91951#GAACCCATTCTTTCCC      +
+#&gt; 11  chr1 3059365 3059465  HWI-ST1133R:8:1212:8780:42946#GAACCCATTCTTTCCC      +
+#&gt; 12  chr1 3068842 3068939 HWI-ST1133R:8:2215:20128:28486#GAACCCATTCTTTCCC      +
+#&gt; 13  chr1 3068851 3068939 HWI-ST1133R:8:2215:20128:28486#GAACCCATTCTTTCCC      -
+#&gt; 14  chr1 3077199 3077299  HWI-ST1133R:8:1303:9194:69620#GAACCCATTCTTTCCC      -
+#&gt; 15  chr1 3090805 3090905  HWI-ST1133R:8:1216:5060:21458#GAACCCATTCTTTCCC      +
+#&gt; 16  chr1 3090822 3090922  HWI-ST1133R:8:1216:5060:21458#GAACCCATTCTTTCCC      -
+#&gt;    XS  AS CB
+#&gt; 1  45   0   
+#&gt; 2  45   0   
+#&gt; 3  45 -18   
+#&gt; 4  45 -18   
+#&gt; 5  43   0   
+#&gt; 6  45   0   
+#&gt; 7  45   0   
+#&gt; 8  43 -12   
+#&gt; 9  45  -6   
+#&gt; 10 45 -13   
+#&gt; 11 45  -6   
+#&gt; 12 43 -15   
+#&gt; 13 43 -18   
+#&gt; 14 43   0   
+#&gt; 15 45   0   
+#&gt; 16 45   0   </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

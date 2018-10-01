@@ -23,14 +23,20 @@ std::string getTags(bam1_t* &aln,
                     std::string &tag_type,
                     std::string &tag_id) {
   std::string tag ;
-  if(tag_type == "Z"){
-    tag = std::string(bam_aux2Z(bam_aux_get(aln, tag_id.c_str())))  ;
-  } else if (tag_type == "i" ){
-    auto int_tag = bam_aux2i(bam_aux_get(aln, tag_id.c_str())) ;
-    tag = std::to_string(int_tag) ;
-  } else if (tag_type == "A" ){
-    char char_tag = bam_aux2A(bam_aux_get(aln, tag_id.c_str())) ;
-    tag = std::to_string(char_tag) ;
+  uint8_t* aux_info = bam_aux_get(aln, tag_id.c_str()) ;
+
+  if (aux_info) {
+    if(tag_type == "Z"){
+      tag = std::string(bam_aux2Z(aux_info))  ;
+    } else if (tag_type == "i" ){
+      auto int_tag = bam_aux2i(aux_info) ;
+      tag = std::to_string(int_tag) ;
+    } else if (tag_type == "A" ){
+      char char_tag = bam_aux2A(aux_info) ;
+      tag = std::to_string(char_tag) ;
+    }
+  } else {
+    tag = "" ;
   }
   return(tag) ;
 }
@@ -104,14 +110,13 @@ DataFrame read_bam_tags(std::string bampath,
 
   for (int i = 0; i < ntags; ++i){
     int j ;
-    j= i + 5 ;
+    j = i + 5 ;
     out_df[j] = tags[i] ;
     names[j] = tag_ids[i] ;
   }
-
-  Rcpp::DataFrame result(out_df);
+  DataFrame result = DataFrame::create(out_df,
+                                       _("stringsAsFactors") = false);
   result.attr("names") = names;
-
   bam_destroy1(read);
   bam_hdr_destroy(bfile.header);
 

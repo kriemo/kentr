@@ -7,6 +7,9 @@
     <loc>http://kriemo.github.io/kentr/reference/bam_to_df.html</loc>
   </url>
   <url>
+    <loc>http://kriemo.github.io/kentr/reference/download_file.html</loc>
+  </url>
+  <url>
     <loc>http://kriemo.github.io/kentr/reference/find_mismatch.html</loc>
   </url>
   <url>
@@ -38,8 +41,5 @@
   </url>
   <url>
     <loc>http://kriemo.github.io/kentr/reference/write_fasta.html</loc>
-  </url>
-  <url>
-    <loc>http://kriemo.github.io/kentr/reference/write_gztsv.html</loc>
   </url>
 </urlset>

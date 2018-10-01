@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • kentr</title>
+<title>Download a file if it doesn't exist — download_file • kentr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,7 +30,10 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Download a file if it doesn't exist — download_file" />
+
+<meta property="og:description" content="Download a file if it doesn't exist" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -46,7 +49,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -92,114 +95,47 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Download a file if it doesn't exist</h1>
+    <small class="dont-index">Source: <a href='https://github.com/kriemo/kentr/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>download_file.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    
+    <p>Download a file if it doesn't exist</p>
+    
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
-
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="bam_to_df.html">bam_to_df()</a></code> </p>
-        </td>
-        <td><p>Read in bam file as a data.frame</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="download_file.html">download_file()</a></code> </p>
-        </td>
-        <td><p>Download a file if it doesn't exist</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="find_mismatch.html">find_mismatch()</a></code> </p>
-        </td>
-        <td><p>Compare a string to a vector of strings report mismatch position</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="getSeq.html">getSeq()</a></code> </p>
-        </td>
-        <td><p>Fetch DNA sequence from an indexed fasta file</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_hamming.html">get_hamming()</a></code> </p>
-        </td>
-        <td><p>Compare a string to a vector of strings and report hamming distance</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_hamming_pairs.html">get_hamming_pairs()</a></code> </p>
-        </td>
-        <td><p>Compare a vector of strings to a vector of strings and report hamming distance</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_kmers.html">get_kmers()</a></code> </p>
-        </td>
-        <td><p>get kmer-counts for character vector of sequences</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_sequences.html">get_sequences()</a></code> </p>
-        </td>
-        <td><p>Extract sequences from fasta using bed intervals</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_sw.html">get_sw()</a></code> </p>
-        </td>
-        <td><p>Compute complete striped smith waterman alignment between two dna strings (ATCG)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="gtf_to_seq.html">gtf_to_seq()</a></code> </p>
-        </td>
-        <td><p>Extract sequences from fasta using gtf input</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="n_inner_join.html">n_inner_join()</a></code> </p>
-        </td>
-        <td><p>Read multiple tsv files and join by common cols</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="revComp.html">revComp()</a></code> </p>
-        </td>
-        <td><p>Reverse complement a vector of DNA sequences</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="write_fasta.html">write_fasta()</a></code> </p>
-        </td>
-        <td><p>Write fasta format data to disk</p></td>
-      </tr>
-    </tbody>
+    <pre class="usage"><span class='fu'>download_file</span>(<span class='no'>url</span>, <span class='no'>filename</span>, <span class='kw'>gunzip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>url</th>
+      <td><p>download url</p></td>
+    </tr>
+    <tr>
+      <th>filename</th>
+      <td><p>output file name</p></td>
+    </tr>
+    <tr>
+      <th>gunzip</th>
+      <td><p>uncompress file using gzip Default = FALSE, if suffix contains .gz this will
+be removed.</p></td>
+    </tr>
     </table>
-  </div>
+    
 
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
-    </ul>
+      <li><a href="#arguments">Arguments</a></li>
+                </ul>
+
   </div>
 </div>
 

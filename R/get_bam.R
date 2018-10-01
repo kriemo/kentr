@@ -1,9 +1,19 @@
 
-#' Read in bam file as a trbl_interval
+#' Read in bam file as a data.frame
 #' @param filename path to bam file
-#' @param region samtools region query
+#' @param region samtools region query string (i.e. chr1:100-1000)
 #' @param tags bam tags to return, supplied with type suffix, i.e. "XS:A" for character,
-#' "AS:i" for integer, and "CB:Z" for string
+#' "AS:i" for integer, and "CB:Z" for string. Bam entries with missing tags will return empty
+#' strings.
+#' @examples
+#' bam_file <- system.file("extdata", "small_sorted.bam", package = "kentr")
+#' res <- bam_to_df(bam_file)
+#' head(res)
+#'
+#' res <- bam_to_df(bam_file,
+#'                  region = "chr1:3e6-3.1e6",
+#'                  tags = c("XS:A", "AS:i", "CB:Z"))
+#' res
 #' @export
 bam_to_df <- function(filename = NULL,
                       region = ".",

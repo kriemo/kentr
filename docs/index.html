@@ -92,13 +92,12 @@
 <a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt;   chrom start   end</span></a>
 <a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; 1  chr1 20000 20025</span></a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co"># path to fasta file (with fai samtools faidx index)</span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14">fa_path &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"test.fasta"</span>, <span class="dt">package =</span> <span class="st">"kentr"</span>)</a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="kw"><a href="reference/get_sequences.html">get_sequences</a></span>(df, fa_path)</a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt;   chrom start   end           header                       seq</span></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt; 1  chr1 20000 20025 chr1:20000-20025 cctggtgctcccacaaaggagaagg</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co"># path to fasta file (with fai samtools faidx index)</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">fa_path &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"test.fasta"</span>, <span class="dt">package =</span> <span class="st">"kentr"</span>)</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="kw"><a href="reference/get_sequences.html">get_sequences</a></span>(df, fa_path)</a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt;   chrom start   end           header                       seq</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; 1  chr1 20000 20025 chr1:20000-20025 cctggtgctcccacaaaggagaagg</span></a></code></pre></div>
 </div>
 <div id="compute-hamming-distances" class="section level3">
 <h3 class="hasAnchor">
@@ -242,6 +241,69 @@
 <a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt;   strand</span></a>
 <a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 1      +</span></a>
 <a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 2      +</span></a></code></pre></div>
+</div>
+<div id="extract-bam-alignments-as-a-data-frame" class="section level3">
+<h3 class="hasAnchor">
+<a href="#extract-bam-alignments-as-a-data-frame" class="anchor"></a>Extract bam alignments as a data.frame</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">bam_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">"extdata"</span>,</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">                        <span class="st">"small_sorted.bam"</span>, </a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">                        <span class="dt">package =</span> <span class="st">"kentr"</span>)</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">res &lt;-<span class="st"> </span><span class="kw"><a href="reference/bam_to_df.html">bam_to_df</a></span>(bam_file)</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="kw">head</span>(res)</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt;   chrom   start     end                                            name</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt; 1  chr1 3015399 3015499 HWI-ST1133R:8:2304:12130:31201#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; 2  chr1 3015400 3015500 HWI-ST1133R:8:1313:13728:38795#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; 3  chr1 3019635 3019735 HWI-ST1133R:8:1209:10428:12865#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt; 4  chr1 3019635 3019735  HWI-ST1133R:8:2315:2419:54036#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; 5  chr1 3043511 3043611  HWI-ST1133R:8:1107:9218:64408#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; 6  chr1 3053963 3054063  HWI-ST1133R:8:2212:2473:90987#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt;   strand</span></a>
+<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt; 1      -</span></a>
+<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt; 2      +</span></a>
+<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt; 3      +</span></a>
+<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co">#&gt; 4      -</span></a>
+<a class="sourceLine" id="cb6-19" data-line-number="19"><span class="co">#&gt; 5      -</span></a>
+<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="co">#&gt; 6      +</span></a>
+<a class="sourceLine" id="cb6-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb6-22" data-line-number="22">res &lt;-<span class="st"> </span><span class="kw"><a href="reference/bam_to_df.html">bam_to_df</a></span>(bam_file,</a>
+<a class="sourceLine" id="cb6-23" data-line-number="23">                 <span class="dt">region =</span> <span class="st">"chr1:3e6-3.1e6"</span>,</a>
+<a class="sourceLine" id="cb6-24" data-line-number="24">                 <span class="dt">tags =</span> <span class="kw">c</span>(<span class="st">"XS:A"</span>, <span class="st">"AS:i"</span>))</a>
+<a class="sourceLine" id="cb6-25" data-line-number="25">res</a>
+<a class="sourceLine" id="cb6-26" data-line-number="26"><span class="co">#&gt;    chrom   start     end                                            name</span></a>
+<a class="sourceLine" id="cb6-27" data-line-number="27"><span class="co">#&gt; 1   chr1 3015399 3015499 HWI-ST1133R:8:2304:12130:31201#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-28" data-line-number="28"><span class="co">#&gt; 2   chr1 3015400 3015500 HWI-ST1133R:8:1313:13728:38795#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-29" data-line-number="29"><span class="co">#&gt; 3   chr1 3019635 3019735 HWI-ST1133R:8:1209:10428:12865#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-30" data-line-number="30"><span class="co">#&gt; 4   chr1 3019635 3019735  HWI-ST1133R:8:2315:2419:54036#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-31" data-line-number="31"><span class="co">#&gt; 5   chr1 3043511 3043611  HWI-ST1133R:8:1107:9218:64408#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-32" data-line-number="32"><span class="co">#&gt; 6   chr1 3053963 3054063  HWI-ST1133R:8:2212:2473:90987#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-33" data-line-number="33"><span class="co">#&gt; 7   chr1 3054014 3054114  HWI-ST1133R:8:2212:2473:90987#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-34" data-line-number="34"><span class="co">#&gt; 8   chr1 3058369 3058469   HWI-ST1133R:8:2309:7368:5858#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-35" data-line-number="35"><span class="co">#&gt; 9   chr1 3058645 3058745 HWI-ST1133R:8:1111:14310:29996#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-36" data-line-number="36"><span class="co">#&gt; 10  chr1 3058647 3058746 HWI-ST1133R:8:2302:13219:91951#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-37" data-line-number="37"><span class="co">#&gt; 11  chr1 3059365 3059465  HWI-ST1133R:8:1212:8780:42946#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-38" data-line-number="38"><span class="co">#&gt; 12  chr1 3068842 3068939 HWI-ST1133R:8:2215:20128:28486#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-39" data-line-number="39"><span class="co">#&gt; 13  chr1 3068851 3068939 HWI-ST1133R:8:2215:20128:28486#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-40" data-line-number="40"><span class="co">#&gt; 14  chr1 3077199 3077299  HWI-ST1133R:8:1303:9194:69620#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-41" data-line-number="41"><span class="co">#&gt; 15  chr1 3090805 3090905  HWI-ST1133R:8:1216:5060:21458#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-42" data-line-number="42"><span class="co">#&gt; 16  chr1 3090822 3090922  HWI-ST1133R:8:1216:5060:21458#GAACCCATTCTTTCCC</span></a>
+<a class="sourceLine" id="cb6-43" data-line-number="43"><span class="co">#&gt;    strand XS  AS</span></a>
+<a class="sourceLine" id="cb6-44" data-line-number="44"><span class="co">#&gt; 1       - 45   0</span></a>
+<a class="sourceLine" id="cb6-45" data-line-number="45"><span class="co">#&gt; 2       + 45   0</span></a>
+<a class="sourceLine" id="cb6-46" data-line-number="46"><span class="co">#&gt; 3       + 45 -18</span></a>
+<a class="sourceLine" id="cb6-47" data-line-number="47"><span class="co">#&gt; 4       - 45 -18</span></a>
+<a class="sourceLine" id="cb6-48" data-line-number="48"><span class="co">#&gt; 5       - 43   0</span></a>
+<a class="sourceLine" id="cb6-49" data-line-number="49"><span class="co">#&gt; 6       + 45   0</span></a>
+<a class="sourceLine" id="cb6-50" data-line-number="50"><span class="co">#&gt; 7       - 45   0</span></a>
+<a class="sourceLine" id="cb6-51" data-line-number="51"><span class="co">#&gt; 8       - 43 -12</span></a>
+<a class="sourceLine" id="cb6-52" data-line-number="52"><span class="co">#&gt; 9       - 45  -6</span></a>
+<a class="sourceLine" id="cb6-53" data-line-number="53"><span class="co">#&gt; 10      + 45 -13</span></a>
+<a class="sourceLine" id="cb6-54" data-line-number="54"><span class="co">#&gt; 11      + 45  -6</span></a>
+<a class="sourceLine" id="cb6-55" data-line-number="55"><span class="co">#&gt; 12      + 43 -15</span></a>
+<a class="sourceLine" id="cb6-56" data-line-number="56"><span class="co">#&gt; 13      - 43 -18</span></a>
+<a class="sourceLine" id="cb6-57" data-line-number="57"><span class="co">#&gt; 14      - 43   0</span></a>
+<a class="sourceLine" id="cb6-58" data-line-number="58"><span class="co">#&gt; 15      + 45   0</span></a>
+<a class="sourceLine" id="cb6-59" data-line-number="59"><span class="co">#&gt; 16      - 45   0</span></a></code></pre></div>
 </div>
 </div>
 </div>
