@@ -18,6 +18,7 @@
 #include "htslib/htslib/bgzf.h"
 #include "htslib/htslib/faidx.h"
 #include "ssw/ssw_cpp.h"
+#include "ranks/ranker.h"
 
 // [[Rcpp::plugins(cpp11)]]
 using namespace Rcpp ;
@@ -41,4 +42,10 @@ public:
 
 CharacterVector revComp(CharacterVector vec) ;
 std::string revComp(std::string seq) ;
+
+struct MannWhitney {
+  double pval, stat ;
+  int w ;
+};
+
 #endif

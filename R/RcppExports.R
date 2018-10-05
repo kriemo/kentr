@@ -56,6 +56,10 @@ get_kmers <- function(seqs, n = 2L) {
     .Call(`_kentr_get_kmers`, seqs, n)
 }
 
+mw_test_impl <- function(df, idx1, idx2) {
+    .Call(`_kentr_mw_test_impl`, df, idx1, idx2)
+}
+
 #' Compute complete striped smith waterman alignment between two dna strings (ATCG)
 #' @description Alignments will be computed for both forward and reverse complement. Forward
 #' alignments will be indicated with strand "+", whereas reverse complement alignments will

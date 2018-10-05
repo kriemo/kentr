@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • kentr</title>
+<title>Mann whitney test — mann_whitney • kentr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,7 +30,10 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Mann whitney test — mann_whitney" />
+
+<meta property="og:description" content="Mann whitney test" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -46,7 +49,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -92,120 +95,59 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Mann whitney test</h1>
+    <small class="dont-index">Source: <a href='https://github.com/kriemo/kentr/blob/master/R/mann_whitney.R'><code>R/mann_whitney.R</code></a></small>
+    <div class="hidden name"><code>mann_whitney.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    
+    <p>Mann whitney test</p>
+    
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
-
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="bam_to_df.html">bam_to_df()</a></code> </p>
-        </td>
-        <td><p>Read in bam file as a data.frame</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="download_file.html">download_file()</a></code> </p>
-        </td>
-        <td><p>Download a file if it doesn't exist</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="find_mismatch.html">find_mismatch()</a></code> </p>
-        </td>
-        <td><p>Compare a string to a vector of strings report mismatch position</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="getSeq.html">getSeq()</a></code> </p>
-        </td>
-        <td><p>Fetch DNA sequence from an indexed fasta file</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_hamming.html">get_hamming()</a></code> </p>
-        </td>
-        <td><p>Compare a string to a vector of strings and report hamming distance</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_hamming_pairs.html">get_hamming_pairs()</a></code> </p>
-        </td>
-        <td><p>Compare a vector of strings to a vector of strings and report hamming distance</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_kmers.html">get_kmers()</a></code> </p>
-        </td>
-        <td><p>get kmer-counts for character vector of sequences</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_sequences.html">get_sequences()</a></code> </p>
-        </td>
-        <td><p>Extract sequences from fasta using bed intervals</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_sw.html">get_sw()</a></code> </p>
-        </td>
-        <td><p>Compute complete striped smith waterman alignment between two dna strings (ATCG)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="gtf_to_seq.html">gtf_to_seq()</a></code> </p>
-        </td>
-        <td><p>Extract sequences from fasta using gtf input</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="mann_whitney.html">mann_whitney()</a></code> </p>
-        </td>
-        <td><p>Mann whitney test</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="n_inner_join.html">n_inner_join()</a></code> </p>
-        </td>
-        <td><p>Read multiple tsv files and join by common cols</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="revComp.html">revComp()</a></code> </p>
-        </td>
-        <td><p>Reverse complement a vector of DNA sequences</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="write_fasta.html">write_fasta()</a></code> </p>
-        </td>
-        <td><p>Write fasta format data to disk</p></td>
-      </tr>
-    </tbody>
+    <pre class="usage"><span class='fu'>mann_whitney</span>(<span class='no'>df</span>, <span class='no'>id_col</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>df</th>
+      <td><p>dataframe</p></td>
+    </tr>
+    <tr>
+      <th>id_col</th>
+      <td><p>column in df that contains the sample ids. Test only works for two
+sample comparison</p></td>
+    </tr>
     </table>
-  </div>
+    
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>ids</span> <span class='kw'>&lt;-</span> <span class='fu'>rep</span>(<span class='fu'>c</span>(<span class='st'>"A"</span>, <span class='st'>"B"</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>1000</span>)
+<span class='no'>nums1</span> <span class='kw'>&lt;-</span> <span class='fu'>rnorm</span>(<span class='fl'>1000</span>)
+<span class='fu'>set.seed</span>(<span class='fl'>42</span>)
+<span class='no'>offset</span> <span class='kw'>&lt;-</span> <span class='fu'>sample</span>(<span class='fu'>c</span>(-<span class='fl'>100</span>, <span class='fl'>100</span>), <span class='fl'>1</span>)
+<span class='no'>nums2</span> <span class='kw'>&lt;-</span> <span class='no'>nums1</span> + <span class='no'>offset</span>
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>ids</span> <span class='kw'>=</span> <span class='no'>ids</span>,
+                 <span class='kw'>num</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='no'>nums1</span>, <span class='no'>nums2</span>))
+
+<span class='no'>df</span>$<span class='no'>num2</span> <span class='kw'>&lt;-</span> <span class='no'>nums1</span> + <span class='no'>offset</span> + <span class='fl'>1</span>
+
+<span class='fu'>mann_whitney</span>(<span class='no'>df</span>, <span class='st'>"ids"</span>)</div><div class='output co'>#&gt;     id      pval w_stat    test_stat
+#&gt; 1  num 0.0000000      0 -38.72011591
+#&gt; 2 num2 0.9691444 499500  -0.03868145</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#arguments">Arguments</a></li>
+            
+      <li><a href="#examples">Examples</a></li>
     </ul>
+
   </div>
 </div>
 
