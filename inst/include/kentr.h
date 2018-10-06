@@ -44,7 +44,7 @@ CharacterVector revComp(CharacterVector vec) ;
 std::string revComp(std::string seq) ;
 
 struct MannWhitney {
-  double pval, stat ;
+  double pval ;
   int w ;
 };
 
