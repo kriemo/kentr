@@ -58,7 +58,7 @@ read_fasta <- function(fasta_path){
   fasta_lines <- fasta_lines[fasta_lines != ""]
   fasta_lines <- stringr::str_trim(fasta_lines)
   df <- data.frame(records = fasta_lines)
-  df <- tidyr::separate(df, records, into = c("name", "seq"), sep = "\n")
+  df <- tidyr::separate(df, .data$records, into = c("name", "seq"), sep = "\n")
   df
 }
 
