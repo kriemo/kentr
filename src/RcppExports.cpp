@@ -106,15 +106,18 @@ BEGIN_RCPP
 END_RCPP
 }
 // mw_test_impl
-DataFrame mw_test_impl(DataFrame& df, IntegerVector& idx1, IntegerVector& idx2);
-RcppExport SEXP _kentr_mw_test_impl(SEXP dfSEXP, SEXP idx1SEXP, SEXP idx2SEXP) {
+DataFrame mw_test_impl(DataFrame df, IntegerVector idx1, IntegerVector idx2, std::string alternative, bool correct, int mu);
+RcppExport SEXP _kentr_mw_test_impl(SEXP dfSEXP, SEXP idx1SEXP, SEXP idx2SEXP, SEXP alternativeSEXP, SEXP correctSEXP, SEXP muSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< DataFrame& >::type df(dfSEXP);
-    Rcpp::traits::input_parameter< IntegerVector& >::type idx1(idx1SEXP);
-    Rcpp::traits::input_parameter< IntegerVector& >::type idx2(idx2SEXP);
-    rcpp_result_gen = Rcpp::wrap(mw_test_impl(df, idx1, idx2));
+    Rcpp::traits::input_parameter< DataFrame >::type df(dfSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type idx1(idx1SEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type idx2(idx2SEXP);
+    Rcpp::traits::input_parameter< std::string >::type alternative(alternativeSEXP);
+    Rcpp::traits::input_parameter< bool >::type correct(correctSEXP);
+    Rcpp::traits::input_parameter< int >::type mu(muSEXP);
+    rcpp_result_gen = Rcpp::wrap(mw_test_impl(df, idx1, idx2, alternative, correct, mu));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -140,7 +143,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_kentr_get_hamming", (DL_FUNC) &_kentr_get_hamming, 2},
     {"_kentr_find_mismatch", (DL_FUNC) &_kentr_find_mismatch, 2},
     {"_kentr_get_kmers", (DL_FUNC) &_kentr_get_kmers, 2},
-    {"_kentr_mw_test_impl", (DL_FUNC) &_kentr_mw_test_impl, 3},
+    {"_kentr_mw_test_impl", (DL_FUNC) &_kentr_mw_test_impl, 6},
     {"_kentr_get_sw", (DL_FUNC) &_kentr_get_sw, 2},
     {NULL, NULL, 0}
 };

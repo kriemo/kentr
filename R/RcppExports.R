@@ -56,8 +56,8 @@ get_kmers <- function(seqs, n = 2L) {
     .Call(`_kentr_get_kmers`, seqs, n)
 }
 
-mw_test_impl <- function(df, idx1, idx2) {
-    .Call(`_kentr_mw_test_impl`, df, idx1, idx2)
+mw_test_impl <- function(df, idx1, idx2, alternative = "two.sided", correct = TRUE, mu = 0L) {
+    .Call(`_kentr_mw_test_impl`, df, idx1, idx2, alternative, correct, mu)
 }
 
 #' Compute complete striped smith waterman alignment between two dna strings (ATCG)

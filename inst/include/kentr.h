@@ -20,7 +20,6 @@
 #include "ssw/ssw_cpp.h"
 #include "ranks/ranker.h"
 
-// [[Rcpp::plugins(cpp11)]]
 using namespace Rcpp ;
 
 // class for handling bam file opening and closing

@@ -45,6 +45,23 @@ write_fasta <- function(df, out_path,
 
 }
 
+#'Read fasta format into data.frame
+#'@param fasta_path filename for input fasta records
+#'@importFrom readr read_file
+#'@importFrom stringr str_split str_trim
+#'@importFrom tidyr separate
+#'@export
+read_fasta <- function(fasta_path){
+
+  fasta_lines <- readr::read_file(fasta_path)
+  fasta_lines <- stringr::str_split(fasta_lines, ">")[[1]]
+  fasta_lines <- fasta_lines[fasta_lines != ""]
+  fasta_lines <- stringr::str_trim(fasta_lines)
+  df <- data.frame(records = fasta_lines)
+  df <- tidyr::separate(df, records, into = c("name", "seq"), sep = "\n")
+  df
+}
+
 #'Extract sequences from fasta using gtf input
 #'
 #'@param df dataframe containing gtf style entries, either in as bed (chrom, start, end) or (seqnames)

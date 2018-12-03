@@ -4,13 +4,20 @@
 \alias{mann_whitney}
 \title{Mann whitney test}
 \usage{
-mann_whitney(df, id_col)
+mann_whitney(df, id_col, alternative = "two.sided", correct = TRUE,
+  mu = 0)
 }
 \arguments{
 \item{df}{dataframe}
 
 \item{id_col}{column in df that contains the sample ids. Test only works for two
 sample comparison}
+
+\item{alternative}{one of "two.sided", "greater", or "less" see [stats::wilcox.test]}
+
+\item{correct}{logical see [stats::wilcox.test]}
+
+\item{mu}{logical see [stats::wilcox.test]}
 }
 \description{
 Mann whitney test

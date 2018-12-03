@@ -40,3 +40,10 @@ test_that('strand argument works', {
 
 })
 
+test_that('reading fasta works', {
+  fa <- read_fasta(fa_file)
+  expect_true(all(c("name", "seq") %in% colnames(fa)))
+  expect_true(all(dim(fa) == c(2, 2)))
+  expect_equal(nchar(fa$seq[1]), 100000)
+  expect_equal(class(fa), "data.frame")
+})

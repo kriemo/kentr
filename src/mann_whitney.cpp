@@ -1,15 +1,14 @@
 #include "kentr.h"
 
-// rcpp implementation of wilcox.test, with only normal approximation
+// rcpp implementation of wilcox.test
 MannWhitney mw_impl(NumericVector& vec1,
                     NumericVector& vec2,
                     int mu = 0,
-                    std::string method = "average",
                     bool correct = true,
                     std::string alternative = "two.sided") {
+
   MannWhitney results;
 
- // std::vector<double> vec_std = as<std::vector<double> >(vec) ;
   std::vector<double> vec1_std = as<std::vector<double> >(vec1) ;
   std::vector<double> vec2_std = as<std::vector<double> >(vec2) ;
 
@@ -20,7 +19,7 @@ MannWhitney mw_impl(NumericVector& vec1,
   std::vector<double> ranks ;
   std::vector<double> vec_std(vec1_std);
   vec_std.insert(vec_std.end(), vec2_std.begin(), vec2_std.end()) ;
-  rank(vec_std, ranks, method);
+  rank(vec_std, ranks, "average");
 
   int n_x = vec1_std.size() ;
   int n_y = vec2_std.size() ;
@@ -77,21 +76,21 @@ MannWhitney mw_impl(NumericVector& vec1,
         stop("unknown alternative parameter") ;
       }
      }
-     z = (z - CORRECTION) / sigma ;
+    z = (z - CORRECTION) / sigma ;
 
-     if(alternative == "two.sided") {
-       PVAL = 2 * std::min(R::pnorm(z, 0, 1, 1, 0),
-                           R::pnorm(z, 0, 1, 0, 0)) ;
-     } else if (alternative == "greater") {
-       PVAL =  R::pnorm(z, 0, 1, 0, 0) ;
-     } else if (alternative == "less") {
-       PVAL =  R::pnorm(z, 0, 1, 1, 0) ;
-     } else {
-       stop("unknown alternative parameter") ;
-     }
-     if(exact_test && tied_ranks) {
-       warning("cannot compute exact p-value with ties") ;
-     }
+    if(alternative == "two.sided") {
+      PVAL = 2 * std::min(R::pnorm(z, 0, 1, 1, 0),
+                          R::pnorm(z, 0, 1, 0, 0)) ;
+    } else if (alternative == "greater") {
+      PVAL =  R::pnorm(z, 0, 1, 0, 0) ;
+    } else if (alternative == "less") {
+      PVAL =  R::pnorm(z, 0, 1, 1, 0) ;
+    } else {
+      stop("unknown alternative parameter") ;
+    }
+    if(exact_test && tied_ranks) {
+      warning("cannot compute exact p-value with ties") ;
+    }
   }
   results.pval = PVAL ;
   results.w = statistic ;
@@ -100,14 +99,20 @@ MannWhitney mw_impl(NumericVector& vec1,
 
 // Apply Mann-Whitney test per column of a data.frame
 // [[Rcpp::export]]
-DataFrame mw_test_impl(DataFrame& df,
-                       IntegerVector& idx1,
-                       IntegerVector& idx2) {
+DataFrame mw_test_impl(DataFrame df,
+                       IntegerVector idx1,
+                       IntegerVector idx2,
+                       std::string alternative = "two.sided",
+                       bool correct = true,
+                       int mu = 0) {
 
   size_t ncols = df.ncol() ;
   CharacterVector df_names = df.names() ;;
 
+  // allocate vector
   std::vector<MannWhitney> mw_stats ;
+  mw_stats.reserve(ncols) ;
+
   for (int i = 0; i < ncols; i++) {
 
     String current_col = df_names[i] ;
@@ -123,19 +128,21 @@ DataFrame mw_test_impl(DataFrame& df,
       warning("not enough x values") ;
       stats.pval = NA_REAL ;
       stats.w = NA_INTEGER ;
-      mw_stats.push_back(stats) ;
+      mw_stats[i] = stats ;
       continue ;
     }
 
-    stats = mw_impl(vec1, vec2) ;
-    mw_stats.push_back(stats) ;
+    stats = mw_impl(vec1, vec2,
+                    mu,
+                    correct,
+                    alternative) ;
+    mw_stats[i] = stats ;
   }
 
-  size_t nstats = mw_stats.size();
-  NumericVector pvals(nstats) ;
-  IntegerVector w_stat(nstats);
+  NumericVector pvals(ncols) ;
+  IntegerVector w_stat(ncols);
 
-  for(int i = 0; i < nstats; i++){
+  for(int i = 0; i < ncols; i++){
     pvals[i] = mw_stats[i].pval ;
     w_stat[i] = mw_stats[i].w ;
   }
