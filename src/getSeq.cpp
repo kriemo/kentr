@@ -6,7 +6,6 @@
 //' Fetch DNA sequence from an indexed fasta file
 //' @param df dataframe wtih columns chrom start and end
 //' @param fapath path to indexed fasta file
-//' @export
 // [[Rcpp::export]]
 DataFrame getSeq(DataFrame df, std::string fapath) {
   // convert to c string for htslib function call
@@ -69,19 +68,6 @@ getSeq(df, "/Users/kriemo/Projects/Martin/dbases/ensembl85/Ictidomys_tridecemlin
 // [[Rcpp::export]]
 CharacterVector revComp(CharacterVector vec){
 
-  std::unordered_map<char, char> bp_comp ;
-  bp_comp = {
-    {'C', 'G'},
-    {'G', 'C'},
-    {'T', 'A'},
-    {'A', 'T'},
-    {'N', 'N'},
-    {'n', 'n'},
-    {'c', 'g'},
-    {'g', 'c'},
-    {'t', 'a'},
-    {'a', 't'}
-    };
   size_t nr = vec.size() ;
   CharacterVector out_vec(nr) ;
 
@@ -90,7 +76,7 @@ CharacterVector revComp(CharacterVector vec){
     size_t len = seq.size();
     for (int j = 0; j < len; j++){
       auto nt = seq[j] ;
-      seq[j] = bp_comp[nt] ;
+      seq[j] = kentr::bpCompTable[nt] ;
     }
     std::reverse(seq.begin(), seq.end()) ;
     out_vec[i] = seq ;
@@ -101,23 +87,10 @@ CharacterVector revComp(CharacterVector vec){
 // Reverse complement a DNA sequence
 std::string revComp(std::string seq){
 
-  std::unordered_map<char, char> bp_comp ;
-  bp_comp = {
-    {'C', 'G'},
-    {'G', 'C'},
-    {'T', 'A'},
-    {'A', 'T'},
-    {'N', 'N'},
-    {'n', 'n'},
-    {'c', 'g'},
-    {'g', 'c'},
-    {'t', 'a'},
-    {'a', 't'}
-  };
     size_t len = seq.size();
     for (int j = 0; j < len; j++){
       auto nt = seq[j] ;
-      seq[j] = bp_comp[nt] ;
+      seq[j] = kentr::bpCompTable[nt] ;
     }
     std::reverse(seq.begin(), seq.end()) ;
     return seq;

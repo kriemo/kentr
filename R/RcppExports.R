@@ -12,7 +12,6 @@ read_bam <- function(bampath, region, tag_ids, tag_types) {
 #' Fetch DNA sequence from an indexed fasta file
 #' @param df dataframe wtih columns chrom start and end
 #' @param fapath path to indexed fasta file
-#' @export
 getSeq <- function(df, fapath) {
     .Call(`_kentr_getSeq`, df, fapath)
 }

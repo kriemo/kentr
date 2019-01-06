@@ -3,7 +3,6 @@
 export(bam_to_df)
 export(download_file)
 export(find_mismatch)
-export(getSeq)
 export(get_hamming)
 export(get_hamming_pairs)
 export(get_kmers)

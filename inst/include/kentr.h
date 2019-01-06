@@ -39,6 +39,10 @@ public:
   }
 };
 
+namespace kentr {
+extern std::unordered_map<char, char> bpCompTable ;
+} ;
+
 CharacterVector revComp(CharacterVector vec) ;
 std::string revComp(std::string seq) ;
 
