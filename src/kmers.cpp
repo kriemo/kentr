@@ -21,7 +21,8 @@ CharacterVector getKmers(std::string seqs,
   std::transform(seqs.begin(), seqs.end(), seqs.begin(), toupper) ;
 
   int lim = seqs.length() - k + 1;
-  CharacterVector result( lim );
+  CharacterVector result( lim ) ;
+
   if(report_canonical) {
     for ( int j = 0; j < lim; j++ )
     {
@@ -44,8 +45,8 @@ DataFrame countKmers(CharacterVector kmers){
   std::vector<std::string> kmer_name ;
   std::vector<int> counts ;
 
-  // sort kmers
-  std::sort(kmers.begin(), kmers.end()) ;
+  // sort kmers, don't use std::sort, see Rcpp known issues
+  kmers.sort() ;
 
   // initalize groups
   std::string current_kmer("") ;
