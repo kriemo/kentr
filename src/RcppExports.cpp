@@ -94,14 +94,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // get_kmers
-List get_kmers(CharacterVector seqs, int n);
-RcppExport SEXP _kentr_get_kmers(SEXP seqsSEXP, SEXP nSEXP) {
+List get_kmers(CharacterVector seqs, int n, bool both_strands);
+RcppExport SEXP _kentr_get_kmers(SEXP seqsSEXP, SEXP nSEXP, SEXP both_strandsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< CharacterVector >::type seqs(seqsSEXP);
     Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_kmers(seqs, n));
+    Rcpp::traits::input_parameter< bool >::type both_strands(both_strandsSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_kmers(seqs, n, both_strands));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -142,7 +143,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_kentr_get_hamming_pairs", (DL_FUNC) &_kentr_get_hamming_pairs, 2},
     {"_kentr_get_hamming", (DL_FUNC) &_kentr_get_hamming, 2},
     {"_kentr_find_mismatch", (DL_FUNC) &_kentr_find_mismatch, 2},
-    {"_kentr_get_kmers", (DL_FUNC) &_kentr_get_kmers, 2},
+    {"_kentr_get_kmers", (DL_FUNC) &_kentr_get_kmers, 3},
     {"_kentr_mw_test_impl", (DL_FUNC) &_kentr_mw_test_impl, 6},
     {"_kentr_get_sw", (DL_FUNC) &_kentr_get_sw, 2},
     {NULL, NULL, 0}

@@ -4,13 +4,33 @@
 \alias{get_kmers}
 \title{get kmer-counts for character vector of sequences}
 \usage{
-get_kmers(seqs, n = 2L)
+get_kmers(seqs, n = 2L, both_strands = FALSE)
 }
 \arguments{
 \item{seqs}{character vector of sequences}
 
 \item{n}{kmer size}
+
+\item{both_strands}{if TRUE, each kmer and it's reverse complement
+will be counted as the same kmer. The kmer reported will be
+the kmer first in lexicographic ordering. Set this if analyzing
+strand non-specific sequences i.e. some DNA motifs,
+or unstranded sequencing reads. Default = FALSE}
 }
 \description{
 get kmer-counts for character vector of sequences
+}
+\examples{
+get_kmers(c("ATCGATGCTGATCGT",
+            "ATGCTAGCTAGCTGATATATATCGATGTAGCTG"),
+            4)
+
+get_kmers(c("TTTTAAAA"),
+         n = 4)
+
+get_kmers(c("TTTTAAAA"),
+          n = 4,
+          both_strands = TRUE)
+
+
 }

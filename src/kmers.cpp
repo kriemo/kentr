@@ -3,17 +3,37 @@
 #include <algorithm>
 #include <unordered_map>
 
+std::string canonicalKmer(std::string kmer){
+  std::string rc_kmer = revComp(kmer) ;
+  if(kmer < rc_kmer){
+    return kmer ;
+  } else {
+    return rc_kmer ;
+  }
+}
+
 // generate overlapping kmers from a string
-CharacterVector getKmers(std::string seqs, int k = 2){
+CharacterVector getKmers(std::string seqs,
+                         int k = 2,
+                         bool report_canonical = false){
 
   // make all uppercase
   std::transform(seqs.begin(), seqs.end(), seqs.begin(), toupper) ;
 
   int lim = seqs.length() - k + 1;
   CharacterVector result( lim );
-  for ( int j = 0; j < lim; j++ )
-  {
-    result[j] = seqs.substr( j, k );
+  if(report_canonical) {
+    for ( int j = 0; j < lim; j++ )
+    {
+      auto canonical_kmer = canonicalKmer(seqs.substr( j, k )) ;
+      result[j] = canonical_kmer ;
+    }
+  }
+  else {
+    for ( int j = 0; j < lim; j++ )
+    {
+      result[j] = seqs.substr( j, k );
+    }
   }
   return result;
 }
@@ -59,9 +79,30 @@ DataFrame countKmers(CharacterVector kmers){
 //' get kmer-counts for character vector of sequences
 //' @param seqs character vector of sequences
 //' @param n kmer size
+//' @param both_strands if TRUE, each kmer and it's reverse complement
+//' will be counted as the same kmer. The kmer reported will be
+//' the kmer first in lexicographic ordering. Set this if analyzing
+//' strand non-specific sequences i.e. some DNA motifs,
+//' or unstranded sequencing reads. Default = FALSE
+//'
+//' @examples
+//' get_kmers(c("ATCGATGCTGATCGT",
+//'             "ATGCTAGCTAGCTGATATATATCGATGTAGCTG"),
+//'             4)
+//'
+//' get_kmers(c("TTTTAAAA"),
+//'          n = 4)
+//'
+//' get_kmers(c("TTTTAAAA"),
+//'           n = 4,
+//'           both_strands = TRUE)
+//'
+//'
 //' @export
 // [[Rcpp::export]]
-List get_kmers(CharacterVector seqs, int n = 2){
+List get_kmers(CharacterVector seqs,
+               int n = 2,
+               bool both_strands = false){
 
   int n_seqs = seqs.size() ;
   List res(n_seqs) ;
@@ -73,11 +114,11 @@ List get_kmers(CharacterVector seqs, int n = 2){
       Rcpp::String chr_s = NA_STRING ;
       Rcpp::String int_s = NA_INTEGER ;
       res[i] = DataFrame::create(_["kmer"] = chr_s,
-                               _["counts"] = int_s,
-                               _("stringsAsFactors") = false) ;
+                                 _["counts"] = int_s,
+                                 _("stringsAsFactors") = false) ;
       continue ;
     }
-    auto kmers = getKmers(seq, n) ;
+    auto kmers = getKmers(seq, n, both_strands) ;
     auto kmer_count = countKmers(kmers) ;
     res[i] = kmer_count ;
   }
@@ -86,5 +127,13 @@ List get_kmers(CharacterVector seqs, int n = 2){
 }
 
 /*** R
-get_kmers(c("ATCGATGCTGATCGT", "ATGCTAGCTAGCTGATATATATCGATGTAGCTG"), 4)
+get_kmers(c("ATCGATGCTGATCGT",
+            "ATGCTAGCTAGCTGATATATATCGATGTAGCTG"), 4)
+
+get_kmers(c("TTTTAAAA"),
+          n = 4)
+
+get_kmers(c("TTTTAAAA"),
+          n = 4,
+          both_strands = TRUE)
 */

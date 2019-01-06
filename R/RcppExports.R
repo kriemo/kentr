@@ -51,9 +51,28 @@ find_mismatch <- function(bc_to_test, all_bcs) {
 #' get kmer-counts for character vector of sequences
 #' @param seqs character vector of sequences
 #' @param n kmer size
+#' @param both_strands if TRUE, each kmer and it's reverse complement
+#' will be counted as the same kmer. The kmer reported will be
+#' the kmer first in lexicographic ordering. Set this if analyzing
+#' strand non-specific sequences i.e. some DNA motifs,
+#' or unstranded sequencing reads. Default = FALSE
+#'
+#' @examples
+#' get_kmers(c("ATCGATGCTGATCGT",
+#'             "ATGCTAGCTAGCTGATATATATCGATGTAGCTG"),
+#'             4)
+#'
+#' get_kmers(c("TTTTAAAA"),
+#'          n = 4)
+#'
+#' get_kmers(c("TTTTAAAA"),
+#'           n = 4,
+#'           both_strands = TRUE)
+#'
+#'
 #' @export
-get_kmers <- function(seqs, n = 2L) {
-    .Call(`_kentr_get_kmers`, seqs, n)
+get_kmers <- function(seqs, n = 2L, both_strands = FALSE) {
+    .Call(`_kentr_get_kmers`, seqs, n, both_strands)
 }
 
 mw_test_impl <- function(df, idx1, idx2, alternative = "two.sided", correct = TRUE, mu = 0L) {
