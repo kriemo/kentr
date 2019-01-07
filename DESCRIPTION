@@ -17,7 +17,7 @@ Imports:
     tidyr,
     Rhtslib, 
     zlibbioc
-SystemRequirements: C++11 GNU make
+SystemRequirements: C++11 
 LinkingTo:
     Rcpp (>= 0.12.8), Rhtslib, zlibbioc
 Encoding: UTF-8

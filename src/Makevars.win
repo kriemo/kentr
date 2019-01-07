@@ -2,6 +2,6 @@ PKG_CPPFLAGS = -I../inst/include
 CXX_STD = CXX11
 CXX11FLAGS += -std=c++11
 
-RHTSLIB_LIBS=`echo 'Rhtslib::pkgconfig("PKG_LIBS")'|\
-    "${R_HOME}/bin/R" --vanilla --slave`
+RHTSLIB_LIBS=$(shell echo 'Rhtslib::pkgconfig("PKG_LIBS")'|\
+    "${R_HOME}/bin/R" --vanilla --slave)
 PKG_LIBS=$(RHTSLIB_LIBS)
