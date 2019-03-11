@@ -41,7 +41,6 @@ read_genome_seq <- function(genome_file) {
 #' seqs <- read_genome_seq(fa_path)
 #' find_motifs(seqs, query_seq)
 #'
-#' @importFrom tibble as_tibble
 #' @export
 find_motifs <- function(df, query_seq) {
 
@@ -56,7 +55,7 @@ find_motifs <- function(df, query_seq) {
 
   res <- purrr::imap_dfr(res,
                          function(indexes, seq_header) {
-                           df_out <- tibble::as_tibble(indexes)
+                           df_out <- as.data.frame(indexes)
                            df_out <- mutate(
                                df_out,
                                start = start - 1,

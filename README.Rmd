@@ -7,7 +7,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "100%",
+  rows.print=5
 )
 options(tidyverse.quiet = TRUE)
 ```
@@ -130,7 +131,8 @@ fa_path <- system.file("extdata", "test.fasta", package = "kentr")
 query_seq <- "AATAAA[GTC]"
 
 matches <- read_genome_seq(fa_path) %>% 
-  find_motifs(query_seq)
+  find_motifs(query_seq) %>% 
+  head()
 
 matches
 

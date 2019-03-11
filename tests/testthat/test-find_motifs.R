@@ -3,10 +3,10 @@ context('find_motifs')
 fa_file <- system.file("extdata", "test.fasta", package = "kentr")
 
 test_that("correct number of motifs are returned",{
-  test_dat <- tribble(
-    ~header, ~seq,
-    "foo", "AATTAATTAATT",
-    "bar", "GCTGNNNACNATTAANNNAJ"
+  test_dat <- data.frame(
+    header = c("foo", "bar"),
+    seq = c("AATTAATTAATT",
+            "GCTGNNNACNATTAANNNAJ")
   )
   query_seq <- "AATT"
   res <- find_motifs(test_dat, query_seq)

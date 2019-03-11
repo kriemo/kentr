@@ -263,37 +263,24 @@ fa_path <- system.file("extdata", "test.fasta", package = "kentr")
 query_seq <- "AATAAA[GTC]"
 
 matches <- read_genome_seq(fa_path) %>% 
-  find_motifs(query_seq)
+  find_motifs(query_seq) %>% 
+  head()
 
 matches
-#> # A tibble: 139 x 4
-#>    chrom start   end header       
-#>    <chr> <dbl> <int> <chr>        
-#>  1 chr1  11544 11551 chr1:0-100000
-#>  2 chr1  33977 33984 chr1:0-100000
-#>  3 chr1  34608 34615 chr1:0-100000
-#>  4 chr1  35489 35496 chr1:0-100000
-#>  5 chr1  35497 35504 chr1:0-100000
-#>  6 chr1  37324 37331 chr1:0-100000
-#>  7 chr1  39909 39916 chr1:0-100000
-#>  8 chr1  40753 40760 chr1:0-100000
-#>  9 chr1  42815 42822 chr1:0-100000
-#> 10 chr1  43116 43123 chr1:0-100000
-#> # … with 129 more rows
+#>   chrom start   end        header
+#> 1  chr1 11544 11551 chr1:0-100000
+#> 2  chr1 33977 33984 chr1:0-100000
+#> 3  chr1 34608 34615 chr1:0-100000
+#> 4  chr1 35489 35496 chr1:0-100000
+#> 5  chr1 35497 35504 chr1:0-100000
+#> 6  chr1 37324 37331 chr1:0-100000
 
 get_sequences(matches, fa_path)
-#> # A tibble: 139 x 6
-#>    chrom start   end header        header1          seq    
-#>    <chr> <dbl> <int> <chr>         <chr>            <chr>  
-#>  1 chr1  11544 11551 chr1:0-100000 chr1:11544-11551 aataaat
-#>  2 chr1  33977 33984 chr1:0-100000 chr1:33977-33984 aataaac
-#>  3 chr1  34608 34615 chr1:0-100000 chr1:34608-34615 aataaag
-#>  4 chr1  35489 35496 chr1:0-100000 chr1:35489-35496 aataaat
-#>  5 chr1  35497 35504 chr1:0-100000 chr1:35497-35504 aaTAAAT
-#>  6 chr1  37324 37331 chr1:0-100000 chr1:37324-37331 aataaat
-#>  7 chr1  39909 39916 chr1:0-100000 chr1:39909-39916 aataaat
-#>  8 chr1  40753 40760 chr1:0-100000 chr1:40753-40760 aataaag
-#>  9 chr1  42815 42822 chr1:0-100000 chr1:42815-42822 AATAAAG
-#> 10 chr1  43116 43123 chr1:0-100000 chr1:43116-43123 AATAAAG
-#> # … with 129 more rows
+#>   chrom start   end        header          header1     seq
+#> 1  chr1 11544 11551 chr1:0-100000 chr1:11544-11551 aataaat
+#> 2  chr1 33977 33984 chr1:0-100000 chr1:33977-33984 aataaac
+#> 3  chr1 34608 34615 chr1:0-100000 chr1:34608-34615 aataaag
+#> 4  chr1 35489 35496 chr1:0-100000 chr1:35489-35496 aataaat
+#> 5  chr1 35497 35504 chr1:0-100000 chr1:35497-35504 aaTAAAT
+#> 6  chr1 37324 37331 chr1:0-100000 chr1:37324-37331 aataaat
 ```
