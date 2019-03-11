@@ -13,9 +13,8 @@ read_genome_seq <- function(genome_file) {
                                                col_names = c("chrom", "end"),
                                                col_types = c('ci')))
 
-  gnome_df <- gnome_df %>%
-    mutate(start = 0) %>%
-    select(chrom, start, end)
+  gnome_df <-  mutate(gnome_df, start = 0)
+  gnome_df <- gnome_df[, c("chrom", "start", "end")]
 
   res <- get_sequences(gnome_df, genome_file)
 
@@ -39,30 +38,33 @@ read_genome_seq <- function(genome_file) {
 #' fa_path <- system.file("extdata", "test.fasta", package = "kentr")
 #' query_seq <- "AATAAA[GTC]"
 #'
-#' read_genome_seq(fa_path) %>%
-#'   find_motifs(query_seq)
+#' seqs <- read_genome_seq(fa_path)
+#' find_motifs(seqs, query_seq)
 #'
+#' @importFrom tibble as_tibble
 #' @export
-find_motifs <- function(sequence_df, query_seq) {
+find_motifs <- function(df, query_seq) {
 
-  if(!all(c("seq", "header") %in% colnames(sequence_df))){
+  if(!all(c("seq", "header") %in% colnames(df))){
     stop("columns named seq and header necessary in dataframe",
          call. = FALSE)
   }
 
-  res <- stringr::str_locate_all(sequence_df[["seq"]],
+  res <- stringr::str_locate_all(df[["seq"]],
                                  query_seq)
-  names(res) <- sequence_df[["header"]]
+  names(res) <- df[["header"]]
 
   res <- purrr::imap_dfr(res,
                          function(indexes, seq_header) {
-                           tibble::as_tibble(indexes) %>%
-                             mutate(
+                           df_out <- tibble::as_tibble(indexes)
+                           df_out <- mutate(
+                               df_out,
                                start = start - 1,
                                header = seq_header,
                                chrom = stringr::str_remove(header, ":.+$")
-                             ) %>%
-                             select(chrom, start, end, header)
+                             )
+                            df_out <- df_out[, c("chrom", "start", "end", "header")]
+                            df_out
                          })
 
   res

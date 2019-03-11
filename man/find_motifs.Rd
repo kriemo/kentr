@@ -4,12 +4,12 @@
 \alias{find_motifs}
 \title{Find positions of query seq matches in seq column}
 \usage{
-find_motifs(sequence_df, query_seq)
+find_motifs(df, query_seq)
 }
 \arguments{
-\item{query_seq}{sequence to identify in df$seq column, can contain regex}
-
 \item{df}{data frame containing a header and sequence column}
+
+\item{query_seq}{sequence to identify in df$seq column, can contain regex}
 }
 \value{
 A data.frame with chrom, start, end, and header columns.
@@ -23,7 +23,7 @@ Find positions of query seq matches in seq column
 fa_path <- system.file("extdata", "test.fasta", package = "kentr")
 query_seq <- "AATAAA[GTC]"
 
-read_genome_seq(fa_path) \%>\%
-  find_motifs(query_seq)
+seqs <- read_genome_seq(fa_path)
+find_motifs(seqs, query_seq)
 
 }
