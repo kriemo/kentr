@@ -121,3 +121,18 @@ res <- bam_to_df(bam_file,
                  tags = c("XS:A", "AS:i"))
 res
 ```
+
+
+### Find motif matches genome-wide
+
+```{r}
+fa_path <- system.file("extdata", "test.fasta", package = "kentr")
+query_seq <- "AATAAA[GTC]"
+
+matches <- read_genome_seq(fa_path) %>% 
+  find_motifs(query_seq)
+
+matches
+
+get_sequences(matches, fa_path)
+```
