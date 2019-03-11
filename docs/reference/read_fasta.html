@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read multiple tsv files and join by common cols — n_inner_join • kentr</title>
+<title>Read fasta format into data.frame — read_fasta • kentr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Read multiple tsv files and join by common cols — n_inner_join" />
+<meta property="og:title" content="Read fasta format into data.frame — read_fasta" />
 
-<meta property="og:description" content="Read multiple tsv files and join by common cols" />
+<meta property="og:description" content="Read fasta format into data.frame" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -99,37 +99,25 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read multiple tsv files and join by common cols</h1>
-    <small class="dont-index">Source: <a href='https://github.com/kriemo/kentr/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <div class="hidden name"><code>n_inner_join.Rd</code></div>
+    <h1>Read fasta format into data.frame</h1>
+    <small class="dont-index">Source: <a href='https://github.com/kriemo/kentr/blob/master/R/get_fasta.R'><code>R/get_fasta.R</code></a></small>
+    <div class="hidden name"><code>read_fasta.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Read multiple tsv files and join by common cols</p>
+    <p>Read fasta format into data.frame</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>n_inner_join</span>(<span class='no'>.dir</span>, <span class='no'>.pattern</span>, <span class='no'>.cols</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>read_fasta</span>(<span class='no'>fasta_path</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>.dir</th>
-      <td><p>directory path</p></td>
-    </tr>
-    <tr>
-      <th>.pattern</th>
-      <td><p>wildcard for file matching</p></td>
-    </tr>
-    <tr>
-      <th>.cols</th>
-      <td><p>joins to join multiple files</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>additional arguments to pass to [readr::read_tsv()]</p></td>
+      <th>fasta_path</th>
+      <td><p>filename for input fasta records</p></td>
     </tr>
     </table>
     

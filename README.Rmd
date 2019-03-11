@@ -65,7 +65,7 @@ get_hamming(seq1, seq2)
 ### Count kmers in sequences
 
 ```{r}
-library(tidyverse)
+library(tidyverse, warn.conflicts = FALSE)
 
 fa_path <- system.file("extdata", "test.fasta", package = "kentr")
 df <- data.frame(chrom = "chr1",
@@ -83,7 +83,7 @@ get_kmers(seqs$seq, n = 2)
 
 # use with dplyr tibbles 
 
-seqs <- as_data_frame(seqs)
+seqs <- as_tibble(seqs)
 seqs
 
 kmers <- mutate(seqs, 

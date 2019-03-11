@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read multiple tsv files and join by common cols — n_inner_join • kentr</title>
+<title>read a whole genome into memory as a dataframe — read_genome_seq • kentr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Read multiple tsv files and join by common cols — n_inner_join" />
+<meta property="og:title" content="read a whole genome into memory as a dataframe — read_genome_seq" />
 
-<meta property="og:description" content="Read multiple tsv files and join by common cols" />
+<meta property="og:description" content="read a whole genome into memory as a dataframe" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -99,47 +99,45 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read multiple tsv files and join by common cols</h1>
-    <small class="dont-index">Source: <a href='https://github.com/kriemo/kentr/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <div class="hidden name"><code>n_inner_join.Rd</code></div>
+    <h1>read a whole genome into memory as a dataframe</h1>
+    <small class="dont-index">Source: <a href='https://github.com/kriemo/kentr/blob/master/R/find_motifs.R'><code>R/find_motifs.R</code></a></small>
+    <div class="hidden name"><code>read_genome_seq.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Read multiple tsv files and join by common cols</p>
+    <p>read a whole genome into memory as a dataframe</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>n_inner_join</span>(<span class='no'>.dir</span>, <span class='no'>.pattern</span>, <span class='no'>.cols</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>read_genome_seq</span>(<span class='no'>genome_file</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>.dir</th>
-      <td><p>directory path</p></td>
-    </tr>
-    <tr>
-      <th>.pattern</th>
-      <td><p>wildcard for file matching</p></td>
-    </tr>
-    <tr>
-      <th>.cols</th>
-      <td><p>joins to join multiple files</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>additional arguments to pass to [readr::read_tsv()]</p></td>
+      <th>genome_file</th>
+      <td><p>path to fasta file that is indexed with samtools faidx</p></td>
     </tr>
     </table>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>fa_path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"test.fasta"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"kentr"</span>)
+<span class='fu'>read_genome_seq</span>(<span class='no'>fa_path</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 5</span><span>
+#&gt;   chrom start    end header      seq                                            
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                          
+#&gt; </span><span style='color: #555555;'>1</span><span> chr1      0 </span><span style='text-decoration: underline;'>100</span><span>000 chr1:0-100… NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN…
+#&gt; </span><span style='color: #555555;'>2</span><span> chr2      0 </span><span style='text-decoration: underline;'>100</span><span>000 chr2:0-100… NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN…</div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

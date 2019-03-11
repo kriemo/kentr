@@ -13,6 +13,9 @@
     <loc>http://kriemo.github.io/kentr/reference/find_mismatch.html</loc>
   </url>
   <url>
+    <loc>http://kriemo.github.io/kentr/reference/find_motifs.html</loc>
+  </url>
+  <url>
     <loc>http://kriemo.github.io/kentr/reference/getSeq.html</loc>
   </url>
   <url>
@@ -38,6 +41,12 @@
   </url>
   <url>
     <loc>http://kriemo.github.io/kentr/reference/n_inner_join.html</loc>
+  </url>
+  <url>
+    <loc>http://kriemo.github.io/kentr/reference/read_fasta.html</loc>
+  </url>
+  <url>
+    <loc>http://kriemo.github.io/kentr/reference/read_genome_seq.html</loc>
   </url>
   <url>
     <loc>http://kriemo.github.io/kentr/reference/revComp.html</loc>
