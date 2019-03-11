@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://kriemo.github.io/kentr/index.html</loc>
+    <loc>https://kriemo.github.io/kentr/index.html</loc>
   </url>
   <url>
-    <loc>http://kriemo.github.io/kentr/reference/bam_to_df.html</loc>
+    <loc>https://kriemo.github.io/kentr/reference/bam_to_df.html</loc>
   </url>
   <url>
-    <loc>http://kriemo.github.io/kentr/reference/download_file.html</loc>
+    <loc>https://kriemo.github.io/kentr/reference/download_file.html</loc>
   </url>
   <url>
-    <loc>http://kriemo.github.io/kentr/reference/find_mismatch.html</loc>
+    <loc>https://kriemo.github.io/kentr/reference/find_mismatch.html</loc>
   </url>
   <url>
-    <loc>http://kriemo.github.io/kentr/reference/find_motifs.html</loc>
+    <loc>https://kriemo.github.io/kentr/reference/find_motifs.html</loc>
   </url>
   <url>
-    <loc>http://kriemo.github.io/kentr/reference/getSeq.html</loc>
+    <loc>https://kriemo.github.io/kentr/reference/getSeq.html</loc>
   </url>
   <url>
-    <loc>http://kriemo.github.io/kentr/reference/get_hamming.html</loc>
+    <loc>https://kriemo.github.io/kentr/reference/get_hamming.html</loc>
   </url>
   <url>
-    <loc>http://kriemo.github.io/kentr/reference/get_hamming_pairs.html</loc>
+    <loc>https://kriemo.github.io/kentr/reference/get_hamming_pairs.html</loc>
   </url>
   <url>
-    <loc>http://kriemo.github.io/kentr/reference/get_kmers.html</loc>
+    <loc>https://kriemo.github.io/kentr/reference/get_kmers.html</loc>
   </url>
   <url>
-    <loc>http://kriemo.github.io/kentr/reference/get_sequences.html</loc>
+    <loc>https://kriemo.github.io/kentr/reference/get_sequences.html</loc>
   </url>
   <url>
-    <loc>http://kriemo.github.io/kentr/reference/get_sw.html</loc>
+    <loc>https://kriemo.github.io/kentr/reference/get_sw.html</loc>
   </url>
   <url>
-    <loc>http://kriemo.github.io/kentr/reference/gtf_to_seq.html</loc>
+    <loc>https://kriemo.github.io/kentr/reference/gtf_to_seq.html</loc>
   </url>
   <url>
-    <loc>http://kriemo.github.io/kentr/reference/mann_whitney.html</loc>
+    <loc>https://kriemo.github.io/kentr/reference/mann_whitney.html</loc>
   </url>
   <url>
-    <loc>http://kriemo.github.io/kentr/reference/n_inner_join.html</loc>
+    <loc>https://kriemo.github.io/kentr/reference/n_inner_join.html</loc>
   </url>
   <url>
-    <loc>http://kriemo.github.io/kentr/reference/read_fasta.html</loc>
+    <loc>https://kriemo.github.io/kentr/reference/read_fasta.html</loc>
   </url>
   <url>
-    <loc>http://kriemo.github.io/kentr/reference/read_genome_seq.html</loc>
+    <loc>https://kriemo.github.io/kentr/reference/read_genome_seq.html</loc>
   </url>
   <url>
-    <loc>http://kriemo.github.io/kentr/reference/revComp.html</loc>
+    <loc>https://kriemo.github.io/kentr/reference/revComp.html</loc>
   </url>
   <url>
-    <loc>http://kriemo.github.io/kentr/reference/write_fasta.html</loc>
+    <loc>https://kriemo.github.io/kentr/reference/write_fasta.html</loc>
   </url>
 </urlset>
