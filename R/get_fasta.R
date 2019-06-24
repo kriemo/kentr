@@ -80,9 +80,9 @@ gtf_to_seq <- function(df, fasta_path){
     if (all(gtf_cols %in% colnames(df))){
       df <- dplyr::rename(df, chrom = seqnames)
       df <- dplyr::mutate(df, start = start - 1)
+    } else {
+      stop("unknown columns in supplied dataframe")
     }
-  } else {
-    stop("unknown columns in supplied dataframe")
   }
 
   df <- dplyr::filter(df, type == "exon")
