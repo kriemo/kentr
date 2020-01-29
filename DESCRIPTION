@@ -22,6 +22,6 @@ LinkingTo:
 Encoding: UTF-8
 LazyData: true
 Suggests: testthat
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 URL: http://github.com/kriemo/kentr, http://kriemo.github.io/kentr
 BugReports: https://github.com/kriemo/kentr/issues

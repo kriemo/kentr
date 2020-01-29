@@ -113,7 +113,7 @@ List get_kmers(CharacterVector seqs,
     if (seq.size() < n){
       //int zero = 0;
       Rcpp::String chr_s = NA_STRING ;
-      Rcpp::String int_s = NA_INTEGER ;
+      int int_s = NA_INTEGER ;
       res[i] = DataFrame::create(_["kmer"] = chr_s,
                                  _["counts"] = int_s,
                                  _("stringsAsFactors") = false) ;

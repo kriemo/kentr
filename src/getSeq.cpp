@@ -3,6 +3,45 @@
 #include <algorithm>
 #include <unordered_map>
 
+//' Fetch contig sequence from an indexed fasta file
+//' @param vec characterVector of contigs to fetch
+//' @param fapath path to indexed fasta file
+//' @export
+// [[Rcpp::export]]
+CharacterVector getContig(CharacterVector vec, std::string fapath) {
+  // convert to c string for htslib function call
+  const char* cfapath = fapath.c_str();
+
+  int nr = vec.size() ;
+  CharacterVector outseqs(nr) ;
+
+  // load fasta index
+  faidx_t *fai;
+  fai = fai_load(cfapath);
+  if (fai == NULL) stop("can't load faidx file " + fapath);
+
+  // build sequence and header vectors for each bed entry
+  for(int i = 0; i<nr ; i++) {
+    // pass region arg as c string
+    std::string contig = as<std::string>(vec[i]);
+    auto reg = contig.c_str() ;
+    int seq_len ;
+    char *seq = fai_fetch(fai, reg, &seq_len);
+    if (seq_len >= 0) { // <0 is error
+      std::string seq_out(seq, seq_len) ; // might not be necessary
+      outseqs[i] = seq ;
+    } else {
+      outseqs[i] = NA_STRING ;
+      warning("sequence not found for " + contig) ;
+    }
+    free(seq); //necessary to prevent memory leak
+  }
+
+  fai_destroy(fai) ;
+
+  return outseqs ;
+}
+
 //' Fetch DNA sequence from an indexed fasta file
 //' @param df dataframe wtih columns chrom start and end
 //' @param fapath path to indexed fasta file

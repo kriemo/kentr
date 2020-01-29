@@ -4,8 +4,7 @@
 \alias{mann_whitney}
 \title{Mann whitney test}
 \usage{
-mann_whitney(df, id_col, alternative = "two.sided", correct = TRUE,
-  mu = 0)
+mann_whitney(df, id_col, alternative = "two.sided", correct = TRUE, mu = 0)
 }
 \arguments{
 \item{df}{dataframe}

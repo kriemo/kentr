@@ -9,6 +9,14 @@ read_bam <- function(bampath, region, tag_ids, tag_types) {
     .Call(`_kentr_read_bam`, bampath, region, tag_ids, tag_types)
 }
 
+#' Fetch contig sequence from an indexed fasta file
+#' @param vec characterVector of contigs to fetch
+#' @param fapath path to indexed fasta file
+#' @export
+getContig <- function(vec, fapath) {
+    .Call(`_kentr_getContig`, vec, fapath)
+}
+
 #' Fetch DNA sequence from an indexed fasta file
 #' @param df dataframe wtih columns chrom start and end
 #' @param fapath path to indexed fasta file

@@ -4,8 +4,7 @@
 \alias{write_fasta}
 \title{Write fasta format data to disk}
 \usage{
-write_fasta(df, out_path, header_col = "header", seq_col = "seq",
-  gz = FALSE)
+write_fasta(df, out_path, header_col = "header", seq_col = "seq", gz = FALSE)
 }
 \arguments{
 \item{df}{dataframe containing header and sequence for fasta}

@@ -34,6 +34,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// getContig
+CharacterVector getContig(CharacterVector vec, std::string fapath);
+RcppExport SEXP _kentr_getContig(SEXP vecSEXP, SEXP fapathSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type vec(vecSEXP);
+    Rcpp::traits::input_parameter< std::string >::type fapath(fapathSEXP);
+    rcpp_result_gen = Rcpp::wrap(getContig(vec, fapath));
+    return rcpp_result_gen;
+END_RCPP
+}
 // getSeq
 DataFrame getSeq(DataFrame df, std::string fapath);
 RcppExport SEXP _kentr_getSeq(SEXP dfSEXP, SEXP fapathSEXP) {
@@ -138,6 +150,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_kentr_read_bam_tags", (DL_FUNC) &_kentr_read_bam_tags, 4},
     {"_kentr_read_bam", (DL_FUNC) &_kentr_read_bam, 4},
+    {"_kentr_getContig", (DL_FUNC) &_kentr_getContig, 2},
     {"_kentr_getSeq", (DL_FUNC) &_kentr_getSeq, 2},
     {"_kentr_revComp", (DL_FUNC) &_kentr_revComp, 1},
     {"_kentr_get_hamming_pairs", (DL_FUNC) &_kentr_get_hamming_pairs, 2},
