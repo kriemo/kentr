@@ -13,10 +13,11 @@
 #include <algorithm>
 
 #include <Rcpp.h>
-#include "htslib/htslib/hts.h"
-#include "htslib/htslib/sam.h"
-#include "htslib/htslib/bgzf.h"
-#include "htslib/htslib/faidx.h"
+#include "htslib/hts.h"
+#include "htslib/sam.h"
+#include "htslib/bgzf.h"
+#include "htslib/faidx.h"
+#include "htslib/tbx.h"
 #include "ssw/ssw_cpp.h"
 #include "ranks/ranker.h"
 
@@ -36,6 +37,20 @@ public:
   ~BamReader(){
     hts_idx_destroy(idx);
     sam_close(in);
+  }
+};
+
+class TabixReader {
+public:
+  htsFile* in;
+  tbx_t* idx;
+  BGZF* bz;
+  TabixReader(const std::string& tbxpath,
+              bool check_idx = true) ;
+
+  ~TabixReader(){
+    tbx_destroy(idx);
+    hts_close(in);
   }
 };
 

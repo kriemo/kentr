@@ -1,15 +1,23 @@
+RHTSLIB_LIBS=$(shell echo 'Rhtslib::pkgconfig("PKG_LIBS")'|\
+    "${R_HOME}/bin/R" --vanilla --slave)
+RHTSLIB_CPPFLAGS=$(shell echo 'Rhtslib::pkgconfig("PKG_CPPFLAGS")'|\
+    "${R_HOME}/bin/R" --vanilla --slave)
+
+PKG_LIBS=$(RHTSLIB_LIBS)
+PKG_CPPFLAGS=$(RHTSLIB_CPPFLAGS)  -I../inst/include
+
 CXX = clang++
 CXX_STD = CXX11
-PKG_CPPFLAGS = -I../inst/include
-PKG_LIBS=  -lz -lm -lhts -Lhtslib/
+#PKG_CPPFLAGS = -I../inst/include
+#PKG_LIBS= -lz -lm -lhts -Lhtslib/
 
-.PHONY: htslib all
+#.PHONY: htslib all
 
-all: $(SHLIB)
+#all: $(SHLIB)
 
-$(SHLIB): htslib
+#$(SHLIB): htslib
 
-htslib:
-	(cd htslib; $(MAKE) lib-static CC="$(CC)" CFLAGS="$(CFLAGS) $(CPICFLAGS)" AR="$(AR)" RANLIB="$(RANLIB)"; $(MAKE) mostlyclean ; cd ..)
+#htslib:
+#	(cd htslib; $(MAKE) lib-static CC="$(CC)" CFLAGS="$(CFLAGS) $(CPICFLAGS)" AR="$(AR)" RANLIB="$(RANLIB)"; $(MAKE) mostlyclean ; cd ..)
 
 

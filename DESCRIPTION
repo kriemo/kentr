@@ -4,8 +4,7 @@ Title: Sequence data analysis tools
 Version: 0.0.0.9000
 Authors@R: person("Kent", "Riemondy", email = "kent.riemondy@gmail.com",
   role = c("aut", "cre"))
-Description: Tools for processing sequencing data in R. Incorporates the htslib 
-             C library for accessing bam and fasta files via Rcpp functions.
+Description: Tools for processing sequencing data in R. 
 License: MIT + file LICENSE
 Depends: R (>= 3.1.2)
 Imports: 
@@ -15,13 +14,16 @@ Imports:
     readr,
     stringr,
     R.utils,
-    tidyr
+    tidyr,
+    Rhtslib
 SystemRequirements: C++11 GNU make
 LinkingTo:
-    Rcpp (>= 0.12.8)
+    Rcpp (>= 0.12.8),
+    Rhtslib,
+    zlibbioc
 Encoding: UTF-8
 LazyData: true
 Suggests: testthat
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 URL: http://github.com/kriemo/kentr, http://kriemo.github.io/kentr
 BugReports: https://github.com/kriemo/kentr/issues
