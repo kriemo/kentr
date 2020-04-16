@@ -97,3 +97,7 @@ get_sw <- function(query_seq, ref_seqs) {
     .Call(`_kentr_get_sw`, query_seq, ref_seqs)
 }
 
+read_tabix <- function(tbxpath, region = ".") {
+    .Call(`_kentr_read_tabix`, tbxpath, region)
+}
+

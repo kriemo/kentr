@@ -146,6 +146,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// read_tabix
+List read_tabix(std::string tbxpath, std::string region);
+RcppExport SEXP _kentr_read_tabix(SEXP tbxpathSEXP, SEXP regionSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type tbxpath(tbxpathSEXP);
+    Rcpp::traits::input_parameter< std::string >::type region(regionSEXP);
+    rcpp_result_gen = Rcpp::wrap(read_tabix(tbxpath, region));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_kentr_read_bam_tags", (DL_FUNC) &_kentr_read_bam_tags, 4},
@@ -159,6 +171,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_kentr_get_kmers", (DL_FUNC) &_kentr_get_kmers, 3},
     {"_kentr_mw_test_impl", (DL_FUNC) &_kentr_mw_test_impl, 6},
     {"_kentr_get_sw", (DL_FUNC) &_kentr_get_sw, 2},
+    {"_kentr_read_tabix", (DL_FUNC) &_kentr_read_tabix, 2},
     {NULL, NULL, 0}
 };
 
