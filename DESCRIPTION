@@ -16,7 +16,7 @@ Imports:
     R.utils,
     tidyr,
     Rhtslib
-SystemRequirements: C++11 GNU make
+SystemRequirements: C++11 GNU make libbz2 liblzma libcurl
 LinkingTo:
     Rcpp (>= 0.12.8),
     Rhtslib,
