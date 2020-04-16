@@ -15,11 +15,10 @@ options(tidyverse.quiet = TRUE)
 
 # kentr 
 
-[![Build Status](https://travis-ci.org/kriemo/kentr.svg?branch=master)](https://travis-ci.org/kriemo/kentr)
+![R-CMD-check](https://github.com/kriemo/kentr/workflows/R-CMD-check/badge.svg)
 
 
-A R package with a collection of functions for working with sequence data in R. 
-Wraps the [`htslib`](http://www.htslib.org/) C library and the [`ssw`](https://github.com/mengyao/Complete-Striped-Smith-Waterman-Library) Smith-Waterman  alignment C/C++ library.
+A R package with a collection of functions for working with sequence data in R. Includes the [`ssw`](https://github.com/mengyao/Complete-Striped-Smith-Waterman-Library) Smith-Waterman  alignment C/C++ library.
 
 ```r
 #install.packages('devtools')
