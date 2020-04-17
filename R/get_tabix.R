@@ -17,7 +17,6 @@ tabix_to_df <- function(filename = NULL,
   filename <- path.expand(filename)
   # returned as a list to avoid stringsAsFactors
   df <- read_tabix(filename, region)
-  df <- as.data.frame(df, stringsAsFactors = FALSE)
   numeric_cols <- intersect(c("start", "end"), colnames(df))
   mutate_at(df, numeric_cols, as.numeric)
 

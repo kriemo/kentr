@@ -114,13 +114,13 @@ List read_tabix(std::string tbxpath,
     }
   }
 
-  List res(n_fields);
+  List res_lst(n_fields);
   for(int i = 0; i < n_fields; i++){
-    res[i] = output[i] ;
+    res_lst[i] = output[i] ;
   }
-  // return as list and coerce to data.frame on R side
-  // not sure how to set stringsAsFactors to false
-  // when not using Rcpp::Dataframe::create
+
+  DataFrame res = DataFrame::create(res_lst,
+                                    _("stringsAsFactors") = false);
   res.attr("names") = names ;
 
   return res;
