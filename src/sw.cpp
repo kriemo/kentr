@@ -17,7 +17,7 @@
 //' @param query_seq query sequence as character vector of length one
 //' @param ref_seqs reference sequences as a character vector
 //' @export
-// [[Rcpp::export]]
+// [[Rcpp::export(rng = false)]]
 DataFrame get_sw(std::string query_seq,
                  std::vector<std::string> ref_seqs) {
 

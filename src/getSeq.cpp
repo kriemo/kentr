@@ -7,7 +7,7 @@
 //' @param vec characterVector of contigs to fetch
 //' @param fapath path to indexed fasta file
 //' @export
-// [[Rcpp::export]]
+// [[Rcpp::export(rng = false)]]
 CharacterVector getContig(CharacterVector vec, std::string fapath) {
   // convert to c string for htslib function call
   const char* cfapath = fapath.c_str();
@@ -45,7 +45,7 @@ CharacterVector getContig(CharacterVector vec, std::string fapath) {
 //' Fetch DNA sequence from an indexed fasta file
 //' @param df dataframe wtih columns chrom start and end
 //' @param fapath path to indexed fasta file
-// [[Rcpp::export]]
+// [[Rcpp::export(rng = false)]]
 DataFrame getSeq(DataFrame df, std::string fapath) {
   // convert to c string for htslib function call
   const char* cfapath = fapath.c_str();
@@ -104,7 +104,7 @@ getSeq(df, "/Users/kriemo/Projects/Martin/dbases/ensembl85/Ictidomys_tridecemlin
 //' Reverse complement a vector of DNA sequences
 //' @param vec character vector of DNA [ATCGN]
 //' @export
-// [[Rcpp::export]]
+// [[Rcpp::export(rng = false)]]
 CharacterVector revComp(CharacterVector vec){
 
   size_t nr = vec.size() ;

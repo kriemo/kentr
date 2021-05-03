@@ -45,7 +45,7 @@ int hamming_distance(const std::string& fs, const std::string& ss){
 //' @param bcs_to_test characater vector to get hamming distance
 //' @param all_bcs character vector to compare
 //' @export
-// [[Rcpp::export]]
+// [[Rcpp::export(rng = false)]]
 IntegerVector get_hamming_pairs(std::vector< std::string > bcs_to_test,
                                 std::vector< std::string > all_bcs) {
 
@@ -68,7 +68,7 @@ IntegerVector get_hamming_pairs(std::vector< std::string > bcs_to_test,
 //' @param bc_to_test String to get hamming distance
 //' @param all_bcs character vector to compare
 //' @export
-// [[Rcpp::export]]
+// [[Rcpp::export(rng = false)]]
 IntegerVector get_hamming(std::string bc_to_test,
                                            std::vector< std::string > all_bcs) {
 
@@ -91,7 +91,7 @@ IntegerVector get_hamming(std::string bc_to_test,
 //' @param bc_to_test String to check
 //' @param all_bcs character vector to compare
 //' @export
-// [[Rcpp::export]]
+// [[Rcpp::export(rng = false)]]
 std::vector<int> find_mismatch(std::string bc_to_test,
                                std::vector< std::string > all_bcs) {
   int n = all_bcs.size() ;

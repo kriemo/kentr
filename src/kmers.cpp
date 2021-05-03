@@ -100,7 +100,7 @@ DataFrame countKmers(CharacterVector kmers){
 //'
 //'
 //' @export
-// [[Rcpp::export]]
+// [[Rcpp::export(rng = false)]]
 List get_kmers(CharacterVector seqs,
                int n = 2,
                bool both_strands = false){

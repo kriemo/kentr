@@ -11,7 +11,6 @@ DataFrame read_bam_tags(std::string bampath, std::vector<std::string> tag_ids, s
 RcppExport SEXP _kentr_read_bam_tags(SEXP bampathSEXP, SEXP tag_idsSEXP, SEXP tag_typesSEXP, SEXP regionSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type bampath(bampathSEXP);
     Rcpp::traits::input_parameter< std::vector<std::string> >::type tag_ids(tag_idsSEXP);
     Rcpp::traits::input_parameter< std::vector<std::string> >::type tag_types(tag_typesSEXP);
@@ -25,7 +24,6 @@ DataFrame read_bam(std::string bampath, std::string region, std::vector<std::str
 RcppExport SEXP _kentr_read_bam(SEXP bampathSEXP, SEXP regionSEXP, SEXP tag_idsSEXP, SEXP tag_typesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type bampath(bampathSEXP);
     Rcpp::traits::input_parameter< std::string >::type region(regionSEXP);
     Rcpp::traits::input_parameter< std::vector<std::string> >::type tag_ids(tag_idsSEXP);
@@ -39,7 +37,6 @@ CharacterVector getContig(CharacterVector vec, std::string fapath);
 RcppExport SEXP _kentr_getContig(SEXP vecSEXP, SEXP fapathSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< CharacterVector >::type vec(vecSEXP);
     Rcpp::traits::input_parameter< std::string >::type fapath(fapathSEXP);
     rcpp_result_gen = Rcpp::wrap(getContig(vec, fapath));
@@ -51,7 +48,6 @@ DataFrame getSeq(DataFrame df, std::string fapath);
 RcppExport SEXP _kentr_getSeq(SEXP dfSEXP, SEXP fapathSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< DataFrame >::type df(dfSEXP);
     Rcpp::traits::input_parameter< std::string >::type fapath(fapathSEXP);
     rcpp_result_gen = Rcpp::wrap(getSeq(df, fapath));
@@ -63,7 +59,6 @@ CharacterVector revComp(CharacterVector vec);
 RcppExport SEXP _kentr_revComp(SEXP vecSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< CharacterVector >::type vec(vecSEXP);
     rcpp_result_gen = Rcpp::wrap(revComp(vec));
     return rcpp_result_gen;
@@ -74,7 +69,6 @@ IntegerVector get_hamming_pairs(std::vector< std::string > bcs_to_test, std::vec
 RcppExport SEXP _kentr_get_hamming_pairs(SEXP bcs_to_testSEXP, SEXP all_bcsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::vector< std::string > >::type bcs_to_test(bcs_to_testSEXP);
     Rcpp::traits::input_parameter< std::vector< std::string > >::type all_bcs(all_bcsSEXP);
     rcpp_result_gen = Rcpp::wrap(get_hamming_pairs(bcs_to_test, all_bcs));
@@ -86,7 +80,6 @@ IntegerVector get_hamming(std::string bc_to_test, std::vector< std::string > all
 RcppExport SEXP _kentr_get_hamming(SEXP bc_to_testSEXP, SEXP all_bcsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type bc_to_test(bc_to_testSEXP);
     Rcpp::traits::input_parameter< std::vector< std::string > >::type all_bcs(all_bcsSEXP);
     rcpp_result_gen = Rcpp::wrap(get_hamming(bc_to_test, all_bcs));
@@ -98,7 +91,6 @@ std::vector<int> find_mismatch(std::string bc_to_test, std::vector< std::string 
 RcppExport SEXP _kentr_find_mismatch(SEXP bc_to_testSEXP, SEXP all_bcsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type bc_to_test(bc_to_testSEXP);
     Rcpp::traits::input_parameter< std::vector< std::string > >::type all_bcs(all_bcsSEXP);
     rcpp_result_gen = Rcpp::wrap(find_mismatch(bc_to_test, all_bcs));
@@ -110,7 +102,6 @@ List get_kmers(CharacterVector seqs, int n, bool both_strands);
 RcppExport SEXP _kentr_get_kmers(SEXP seqsSEXP, SEXP nSEXP, SEXP both_strandsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< CharacterVector >::type seqs(seqsSEXP);
     Rcpp::traits::input_parameter< int >::type n(nSEXP);
     Rcpp::traits::input_parameter< bool >::type both_strands(both_strandsSEXP);
@@ -123,7 +114,6 @@ DataFrame get_sw(std::string query_seq, std::vector<std::string> ref_seqs);
 RcppExport SEXP _kentr_get_sw(SEXP query_seqSEXP, SEXP ref_seqsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type query_seq(query_seqSEXP);
     Rcpp::traits::input_parameter< std::vector<std::string> >::type ref_seqs(ref_seqsSEXP);
     rcpp_result_gen = Rcpp::wrap(get_sw(query_seq, ref_seqs));
@@ -135,7 +125,6 @@ List read_tabix(std::string tbxpath, std::string region);
 RcppExport SEXP _kentr_read_tabix(SEXP tbxpathSEXP, SEXP regionSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type tbxpath(tbxpathSEXP);
     Rcpp::traits::input_parameter< std::string >::type region(regionSEXP);
     rcpp_result_gen = Rcpp::wrap(read_tabix(tbxpath, region));
@@ -147,7 +136,6 @@ CharacterVector list_tabix_chroms(std::string tbxpath);
 RcppExport SEXP _kentr_list_tabix_chroms(SEXP tbxpathSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type tbxpath(tbxpathSEXP);
     rcpp_result_gen = Rcpp::wrap(list_tabix_chroms(tbxpath));
     return rcpp_result_gen;

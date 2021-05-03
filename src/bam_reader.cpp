@@ -41,7 +41,7 @@ std::string getTags(bam1_t* &aln,
   return(tag) ;
 }
 
-// [[Rcpp::export]]
+// [[Rcpp::export(rng = false)]]
 DataFrame read_bam_tags(std::string bampath,
                         std::vector<std::string> tag_ids,
                         std::vector<std::string> tag_types,
@@ -175,7 +175,7 @@ DataFrame read_bam_default(std::string bampath,
 
 }
 
-// [[Rcpp::export]]
+// [[Rcpp::export(rng = false)]]
 DataFrame read_bam(std::string bampath,
                    std::string region,
                    std::vector<std::string> tag_ids,

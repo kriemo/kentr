@@ -34,7 +34,7 @@ TabixReader::TabixReader(const std::string& tbxpath,
   }
 }
 
-// [[Rcpp::export]]
+// [[Rcpp::export(rng = false)]]
 List read_tabix(std::string tbxpath,
                      std::string region = "."){
   // open tabix
@@ -123,7 +123,7 @@ List read_tabix(std::string tbxpath,
 }
 
 
-// [[Rcpp::export]]
+// [[Rcpp::export(rng = false)]]
 CharacterVector list_tabix_chroms(std::string tbxpath){
 
   TabixReader tfile(tbxpath, true) ;
