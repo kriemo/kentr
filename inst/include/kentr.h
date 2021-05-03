@@ -19,7 +19,6 @@
 #include "htslib/faidx.h"
 #include "htslib/tbx.h"
 #include "ssw/ssw_cpp.h"
-#include "ranks/ranker.h"
 
 using namespace Rcpp ;
 
@@ -61,9 +60,5 @@ extern std::unordered_map<char, char> bpCompTable ;
 CharacterVector revComp(CharacterVector vec) ;
 std::string revComp(std::string seq) ;
 
-struct MannWhitney {
-  double pval ;
-  int w ;
-};
 
 #endif

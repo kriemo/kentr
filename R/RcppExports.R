@@ -82,10 +82,6 @@ get_kmers <- function(seqs, n = 2L, both_strands = FALSE) {
     .Call(`_kentr_get_kmers`, seqs, n, both_strands)
 }
 
-mw_test_impl <- function(df, idx1, idx2, alternative = "two.sided", correct = TRUE, mu = 0L) {
-    .Call(`_kentr_mw_test_impl`, df, idx1, idx2, alternative, correct, mu)
-}
-
 #' Compute complete striped smith waterman alignment between two dna strings (ATCG)
 #' @description Alignments will be computed for both forward and reverse complement. Forward
 #' alignments will be indicated with strand "+", whereas reverse complement alignments will
@@ -99,5 +95,9 @@ get_sw <- function(query_seq, ref_seqs) {
 
 read_tabix <- function(tbxpath, region = ".") {
     .Call(`_kentr_read_tabix`, tbxpath, region)
+}
+
+list_tabix_chroms <- function(tbxpath) {
+    .Call(`_kentr_list_tabix_chroms`, tbxpath)
 }
 
