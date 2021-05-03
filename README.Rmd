@@ -122,6 +122,18 @@ res <- bam_to_df(bam_file,
 res
 ```
 
+### Extract tabix data as a data.frame
+
+```{r}
+tbx_file <- system.file("extdata", "tabix.bed.gz", package = "kentr")
+res <- tabix_to_df(tbx_file)
+head(res)
+
+res <- tabix_to_df(tbx_file,
+                    region = "chr1:3e6-3.1e6")
+res
+```
+
 
 ### Find motif matches genome-wide
 

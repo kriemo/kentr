@@ -4,21 +4,22 @@
 \alias{tabix_to_df}
 \title{Read in tabix indexed file as a data.frame}
 \usage{
-tabix_to_df(filename = NULL, region = ".")
+tabix_to_df(filename, region = ".")
 }
 \arguments{
 \item{filename}{path to tabix file}
 
-\item{region}{samtools region query string (i.e. chr1:100-1000)
-
-tbx_file <- system.file("extdata", "small_sorted.bam", package = "kentr")
+\item{region}{samtools region query string (i.e. chr1:100-1000)}
+}
+\description{
+Read in tabix indexed file as a data.frame
+}
+\examples{
+tbx_file <- system.file("extdata", "tabix.bed.gz", package = "kentr")
 res <- tabix_to_df(tbx_file)
 head(res)
 
 res <- tabix_to_df(tbx_file,
                    region = "chr1:3e6-3.1e6")
-res}
-}
-\description{
-Read in tabix indexed file as a data.frame
+res
 }

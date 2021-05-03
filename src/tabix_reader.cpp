@@ -87,28 +87,24 @@ List read_tabix(std::string tbxpath,
 
   }
 
-  // figure out output names for chrom start end and possibly strand
+  // figure out output names for chrom start end and pos
   int n_no_names = 0 ;
-  int n_strand = 0 ;
-  std::vector<std::string> strand_vals = {"+", "-"};
   std::vector<std::string> names(n_fields);
+  std::string start_col = "start" ;
+  bool end_col = true ;
+  if(tfile.idx->conf.bc  == tfile.idx->conf.ec){
+    start_col = "pos" ;
+    end_col = false ;
+  }
+
   for(int i = 0; i < n_fields; i++){
     if(i == (tfile.idx->conf.sc - 1)){
       names[i] = "chrom" ;
     } else if (i == (tfile.idx->conf.bc - 1)){
-      names[i] = "start";
-    } else if (i == (tfile.idx->conf.ec - 1)) {
+      names[i] = start_col;
+    } else if (end_col && i == (tfile.idx->conf.ec - 1)) {
       names[i] = "end" ;
     } else {
-      // check first element, if "+" or "-" assign column as strand
-      if(std::count(strand_vals.begin(), strand_vals.end(), output[i][0])) {
-        if(n_strand == 0) {
-          names[i] = "strand" ;
-          continue ;
-        }
-        n_strand += 1 ;
-      }
-
       n_no_names += 1 ;
       names[i] = "X" + std::to_string(n_no_names) ;
     }
@@ -124,4 +120,24 @@ List read_tabix(std::string tbxpath,
   res.attr("names") = names ;
 
   return res;
+}
+
+
+// [[Rcpp::export]]
+CharacterVector list_tabix_chroms(std::string tbxpath){
+
+  TabixReader tfile(tbxpath, true) ;
+  int n;
+  const char **c_chroms = NULL;
+  c_chroms = tbx_seqnames(tfile.idx, &n);
+  if (!c_chroms) Rcpp::stop("Failed to get sequence names list");
+
+  CharacterVector chroms(n);
+
+  for (int i = 0; i < n; i++) {
+    chroms[i] = c_chroms[i];
+  }
+
+  free(c_chroms);
+  return chroms;
 }

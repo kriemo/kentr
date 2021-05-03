@@ -129,7 +129,7 @@ seqs <- as_tibble(seqs)
 seqs
 #> # A tibble: 2 x 5
 #>   chrom start   end header       seq                                            
-#>   <fct> <dbl> <dbl> <chr>        <chr>                                          
+#>   <chr> <dbl> <dbl> <chr>        <chr>                                          
 #> 1 chr1  20000 20500 chr1:20000-… cctggtgctcccacaaaggagaagggctgatcactcaaagttgcga…
 #> 2 chr1  25000 25500 chr1:25000-… GCTTCAGCCTGCACAGATAGGGGAGTAGGGGACAGAGCATTTGCTG…
 
@@ -145,7 +145,7 @@ kmers
 #> 2 chr1:25000-25500 <df[,2] [16 × 2]>
 
 unnest(kmers)
-#> Warning: `cols` is now required.
+#> Warning: `cols` is now required when using unnest().
 #> Please use `cols = c(kmers)`
 #> # A tibble: 32 x 3
 #>    header           kmer  counts
@@ -246,6 +246,42 @@ res
 #> 16 45   0
 ```
 
+### Extract tabix data as a data.frame
+
+``` r
+tbx_file <- system.file("extdata", "tabix.bed.gz", package = "kentr")
+res <- tabix_to_df(tbx_file)
+head(res)
+#>   chrom   start     end                                              X1  X2 X3
+#> 1  chr1 3015399 3015499 HWI-ST1133R:8:2304:12130:31201#GAACCCATTCTTTCCC   0  -
+#> 2  chr1 3015400 3015500 HWI-ST1133R:8:1313:13728:38795#GAACCCATTCTTTCCC   0  +
+#> 3  chr1 3019635 3019735 HWI-ST1133R:8:1209:10428:12865#GAACCCATTCTTTCCC -18  +
+#> 4  chr1 3019635 3019735  HWI-ST1133R:8:2315:2419:54036#GAACCCATTCTTTCCC -18  -
+#> 5  chr1 3043511 3043611  HWI-ST1133R:8:1107:9218:64408#GAACCCATTCTTTCCC   0  -
+#> 6  chr1 3053963 3054063  HWI-ST1133R:8:2212:2473:90987#GAACCCATTCTTTCCC   0  +
+
+res <- tabix_to_df(tbx_file,
+                    region = "chr1:3e6-3.1e6")
+res
+#>    chrom   start     end                                              X1  X2 X3
+#> 1   chr1 3015399 3015499 HWI-ST1133R:8:2304:12130:31201#GAACCCATTCTTTCCC   0  -
+#> 2   chr1 3015400 3015500 HWI-ST1133R:8:1313:13728:38795#GAACCCATTCTTTCCC   0  +
+#> 3   chr1 3019635 3019735 HWI-ST1133R:8:1209:10428:12865#GAACCCATTCTTTCCC -18  +
+#> 4   chr1 3019635 3019735  HWI-ST1133R:8:2315:2419:54036#GAACCCATTCTTTCCC -18  -
+#> 5   chr1 3043511 3043611  HWI-ST1133R:8:1107:9218:64408#GAACCCATTCTTTCCC   0  -
+#> 6   chr1 3053963 3054063  HWI-ST1133R:8:2212:2473:90987#GAACCCATTCTTTCCC   0  +
+#> 7   chr1 3054014 3054114  HWI-ST1133R:8:2212:2473:90987#GAACCCATTCTTTCCC   0  -
+#> 8   chr1 3058369 3058469   HWI-ST1133R:8:2309:7368:5858#GAACCCATTCTTTCCC -12  -
+#> 9   chr1 3058645 3058745 HWI-ST1133R:8:1111:14310:29996#GAACCCATTCTTTCCC  -6  -
+#> 10  chr1 3058647 3058746 HWI-ST1133R:8:2302:13219:91951#GAACCCATTCTTTCCC -13  +
+#> 11  chr1 3059365 3059465  HWI-ST1133R:8:1212:8780:42946#GAACCCATTCTTTCCC  -6  +
+#> 12  chr1 3068842 3068939 HWI-ST1133R:8:2215:20128:28486#GAACCCATTCTTTCCC -15  +
+#> 13  chr1 3068851 3068939 HWI-ST1133R:8:2215:20128:28486#GAACCCATTCTTTCCC -18  -
+#> 14  chr1 3077199 3077299  HWI-ST1133R:8:1303:9194:69620#GAACCCATTCTTTCCC   0  -
+#> 15  chr1 3090805 3090905  HWI-ST1133R:8:1216:5060:21458#GAACCCATTCTTTCCC   0  +
+#> 16  chr1 3090822 3090922  HWI-ST1133R:8:1216:5060:21458#GAACCCATTCTTTCCC   0  -
+```
+
 ### Find motif matches genome-wide
 
 ``` r
@@ -266,7 +302,10 @@ matches
 #> 6  chr1 37324 37331 chr1:0-100000
 
 get_sequences(matches, fa_path)
-#>   chrom start   end        header          header1     seq
+#> New names:
+#> * header -> header...4
+#> * header -> header...5
+#>   chrom start   end    header...4       header...5     seq
 #> 1  chr1 11544 11551 chr1:0-100000 chr1:11544-11551 aataaat
 #> 2  chr1 33977 33984 chr1:0-100000 chr1:33977-33984 aataaac
 #> 3  chr1 34608 34615 chr1:0-100000 chr1:34608-34615 aataaag
